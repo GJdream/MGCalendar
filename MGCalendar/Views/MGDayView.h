@@ -8,9 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
-@class MGDotView, MGLabel;
+@class MGDotView, MGLabel, MGDayView;
+
+@protocol MGDayViewDelegate <NSObject>
+- (void) dayViewSelected:(MGDayView*)dayView;
+@end
 
 @interface MGDayView : UIControl
+
+@property (nonatomic) id<MGDayViewDelegate>delegate;
 
 @property (nonatomic, readonly) NSDate *date;
 @property (nonatomic, readonly) MGLabel *dateLabel;

@@ -26,14 +26,13 @@
     [self.view addSubview:view];
     
     UIImage *texture = [UIImage imageNamed:@"texture-gray"];
-    view.dayViewBorderBackgroundColor = [UIColor colorWithPatternImage:texture];
+    view.dayViewBackgroundColor = [UIColor colorWithPatternImage:texture];
     view.dayViewBorderColor = [UIColor colorWithWhite:85 alpha:1];
     view.dayViewBorderWidth = .5f;
     
     UIFont *font = [UIFont fontWithName:@"AvenirNext-Regular" size:15];
     view.dayViewDateFont = font;
     view.dayViewDayFont = [UIFont fontWithName:@"AvenirNext-Regular" size:10];
-
 }
 
 - (void)didReceiveMemoryWarning

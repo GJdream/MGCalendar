@@ -70,4 +70,9 @@
     return self;
 }
 
+- (void) setHighlighted:(BOOL)highlighted {
+    [super setHighlighted:highlighted];
+    [self.delegate dayViewSelected:self];
+}
+
 @end
