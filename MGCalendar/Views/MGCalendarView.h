@@ -31,6 +31,8 @@
 @property (nonatomic, readonly) MGDayView *selectedDayView;
 @property (nonatomic) UIColor *selectedDayViewBackgroundColor;
 @property (nonatomic) UIColor *selectedDayViewTextColor;
+@property (nonatomic) UIColor *selectedDayViewBorderColor;
+@property (nonatomic) CGFloat selectedDayViewBorderWidth;
 
 //optional
 //could just use init (Default padding = 1)

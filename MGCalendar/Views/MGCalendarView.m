@@ -108,11 +108,15 @@
         self.dayViewTextColor = [UIColor blackColor];
         self.dayViewDateFont = [UIFont systemFontOfSize:15];
         self.dayViewDayFont = [UIFont systemFontOfSize:10];
-        
+        self.dayViewBorderColor = [UIColor whiteColor];
+        self.dayViewBorderWidth = .5f;
+
         self.currentDayViewBackgroundColor = [UIColor colorWithRed:0 green:1.0f blue:0 alpha:1];
 
         self.selectedDayViewBackgroundColor = [UIColor colorWithRed:0.5 green:0 blue:0.0 alpha:.5];
         self.selectedDayViewTextColor = [UIColor whiteColor];
+        self.selectedDayViewBorderColor = [UIColor whiteColor];
+        self.selectedDayViewBorderWidth = .5f;
     }
     return self;
 }
@@ -124,12 +128,16 @@
     [_selectedDayView setBackgroundColor:self.dayViewBackgroundColor];
     _selectedDayView.dayLabel.textColor = self.dayViewTextColor;
     _selectedDayView.dateLabel.textColor = self.dayViewTextColor;
+    _selectedDayView.layer.borderColor = self.dayViewBorderColor.CGColor;
+    _selectedDayView.layer.borderWidth = self.dayViewBorderWidth;
 
     //set new values
     _selectedDayView = dayView;
     _selectedDayView.backgroundColor = self.selectedDayViewBackgroundColor;
     _selectedDayView.dayLabel.textColor = self.selectedDayViewTextColor;
     _selectedDayView.dateLabel.textColor = self.selectedDayViewTextColor;
+    _selectedDayView.layer.borderColor = self.selectedDayViewBorderColor.CGColor;
+    _selectedDayView.layer.borderWidth = self.selectedDayViewBorderWidth;
 }
 
 @end

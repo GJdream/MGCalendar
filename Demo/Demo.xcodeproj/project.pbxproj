@@ -24,6 +24,8 @@
 		4D9B019F16AC528C00FCA6EB /* NSDate+Calendar.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D9B019E16AC528C00FCA6EB /* NSDate+Calendar.m */; };
 		4D9B01A516AC59D200FCA6EB /* MGCalendarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D9B01A416AC59D200FCA6EB /* MGCalendarView.m */; };
 		4DF35E5516AC83DB000847EF /* ViewController~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4DF35E5416AC83DB000847EF /* ViewController~ipad.xib */; };
+		4DFF4FD016AC953200FDF423 /* texture-green.png in Resources */ = {isa = PBXBuildFile; fileRef = 4DFF4FCE16AC953200FDF423 /* texture-green.png */; };
+		4DFF4FD116AC953200FDF423 /* texture-purple.png in Resources */ = {isa = PBXBuildFile; fileRef = 4DFF4FCF16AC953200FDF423 /* texture-purple.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -53,6 +55,8 @@
 		4D9B01A316AC59D200FCA6EB /* MGCalendarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGCalendarView.h; sourceTree = "<group>"; };
 		4D9B01A416AC59D200FCA6EB /* MGCalendarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGCalendarView.m; sourceTree = "<group>"; };
 		4DF35E5416AC83DB000847EF /* ViewController~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "ViewController~ipad.xib"; sourceTree = "<group>"; };
+		4DFF4FCE16AC953200FDF423 /* texture-green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "texture-green.png"; sourceTree = "<group>"; };
+		4DFF4FCF16AC953200FDF423 /* texture-purple.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "texture-purple.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +104,8 @@
 		4D9B016816AC4BDE00FCA6EB /* Demo */ = {
 			isa = PBXGroup;
 			children = (
+				4DFF4FCE16AC953200FDF423 /* texture-green.png */,
+				4DFF4FCF16AC953200FDF423 /* texture-purple.png */,
 				4D4AD81316AC722100F31B43 /* texture-gray.png */,
 				4D9B017116AC4BDE00FCA6EB /* AppDelegate.h */,
 				4D9B017216AC4BDE00FCA6EB /* AppDelegate.m */,
@@ -216,6 +222,8 @@
 				4D9B017F16AC4BDE00FCA6EB /* ViewController.xib in Resources */,
 				4D4AD81416AC722100F31B43 /* texture-gray.png in Resources */,
 				4DF35E5516AC83DB000847EF /* ViewController~ipad.xib in Resources */,
+				4DFF4FD016AC953200FDF423 /* texture-green.png in Resources */,
+				4DFF4FD116AC953200FDF423 /* texture-purple.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

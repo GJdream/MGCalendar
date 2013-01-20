@@ -33,6 +33,10 @@
     UIFont *font = [UIFont fontWithName:@"AvenirNext-Regular" size:15];
     view.dayViewDateFont = font;
     view.dayViewDayFont = [UIFont fontWithName:@"AvenirNext-Regular" size:10];
+    
+    view.selectedDayViewBackgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"texture-green"]];
+    view.selectedDayViewTextColor = [UIColor blackColor];
+    view.selectedDayViewBorderColor = [UIColor greenColor];
 }
 
 - (void)didReceiveMemoryWarning
