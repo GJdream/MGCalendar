@@ -21,24 +21,26 @@
 
     self.view.backgroundColor = [UIColor colorWithWhite:.8 alpha:1];
     
-    MGCalendarView *view = [[MGCalendarView alloc] initWithPadding:5];
-    view.center = self.view.center;
-    [self.view addSubview:view];
+    MGCalendarView *calView = [[MGCalendarView alloc] initWithPadding:5];
+    calView.center = self.view.center;
+    [self.view addSubview:calView];
     
     UIImage *texture = [UIImage imageNamed:@"texture-gray"];
-    view.dayViewBackgroundColor = [UIColor colorWithPatternImage:texture];
-    view.dayViewBorderColor = [UIColor colorWithWhite:85 alpha:1];
-    view.dayViewBorderWidth = .5f;
+    calView.dayViewBackgroundColor = [UIColor colorWithPatternImage:texture];
+    calView.dayViewBorderColor = [UIColor colorWithWhite:85 alpha:1];
+    calView.dayViewBorderWidth = .5f;
     
-    UIFont *font = [UIFont fontWithName:@"AvenirNext-Regular" size:15];
-    view.dayViewDateFont = font;
-    view.dayViewDayFont = [UIFont fontWithName:@"AvenirNext-Regular" size:10];
+    NSString *fontName = @"AvenirNext-Regular";
+    UIFont *font = [UIFont fontWithName:fontName size:15];
+    calView.dayViewDateFont = font;
+    calView.dayViewDayFont = [UIFont fontWithName:fontName size:10];
     
-    view.selectedDayViewBackgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"texture-green"]];
-    view.selectedDayViewTextColor = [UIColor blackColor];
-    view.selectedDayViewBorderColor = [UIColor greenColor];
+    calView.selectedDayViewBackgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"texture-green"]];
+    calView.selectedDayViewTextColor = [UIColor blackColor];
+    calView.selectedDayViewBorderColor = [UIColor greenColor];
     
-//    view.backgroundColor = [UIColor grayColor];
+    calView.monthLabel.font = [UIFont fontWithName:fontName size:26.0];
+//    calView.backgroundColor = [UIColor grayColor];
 }
 
 - (void)didReceiveMemoryWarning
