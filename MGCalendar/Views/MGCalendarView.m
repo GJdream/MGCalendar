@@ -9,9 +9,27 @@
 #import "MGCalendarView.h"
 #import "NSDate+Calendar.h"
 
+@interface MGCalendarView ()
+@property (nonatomic) NSMutableArray *visibileDayViews;
+@property (nonatomic) NSDate *currentDate;
+
+@end
+
 @implementation MGCalendarView
 
-@synthesize monthLabel = _monthLabel;
+@synthesize monthLabel = _monthLabel, visibileDayViews = _visibileDayViews, currentDate = _currentDate;
+
+- (NSDate*) currentDate {
+    if (!_currentDate)
+        _currentDate = [NSDate date];
+    return _currentDate;
+}
+
+- (NSMutableArray*) visibileDayViews {
+    if (!_visibileDayViews)
+        _visibileDayViews = [[NSMutableArray alloc] init];
+    return _visibileDayViews;
+}
 
 - (UILabel*) monthLabel
 {
@@ -21,7 +39,7 @@
         _monthLabel.backgroundColor = [UIColor clearColor];
         _monthLabel.textAlignment = UITextAlignmentCenter;
         _monthLabel.font = [UIFont systemFontOfSize:24.0f];
-        _monthLabel.text = [currentDate monthName];
+        _monthLabel.text = [self.currentDate monthName];
         [_monthLabel sizeToFit];
         frame.size.width = self.frame.size.width;
         _monthLabel.frame = frame;
@@ -29,11 +47,105 @@
     return _monthLabel;
 }
 
+- (id) init {
+    return [self initWithPadding:1];
+}
+
+- (id) initWithPadding:(NSUInteger)padding
+{
+    if (self = [super init]) {
+        NSInteger height = 325;
+        height *= (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 2.1: 1;
+        self.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, height);
+        _padding = padding;
+        
+        [self addSubview:self.monthLabel];
+        
+        //set defaults
+        self.dayViewBackgroundColor = [UIColor colorWithWhite:0.9 alpha:1];
+        self.dayViewTextColor = [UIColor blackColor];
+        self.dayViewDateFont = [UIFont systemFontOfSize:15];
+        self.dayViewDayFont = [UIFont systemFontOfSize:10];
+        self.dayViewBorderColor = [UIColor whiteColor];
+        self.dayViewBorderWidth = .5f;
+        
+        self.currentDayViewBackgroundColor = [UIColor colorWithRed:0 green:1.0f blue:0 alpha:1];
+        
+        self.selectedDayViewBackgroundColor = [UIColor colorWithRed:0.5 green:0 blue:0.0 alpha:.5];
+        self.selectedDayViewTextColor = [UIColor whiteColor];
+        self.selectedDayViewBorderColor = [UIColor whiteColor];
+        self.selectedDayViewBorderWidth = .5f;
+        
+        [self resetCalendar];
+    }
+    return self;
+}
+
+- (void) reloadData {
+    [self removeVisibileDayViews];
+    [self resetCalendar];
+}
+
+- (CGSize) sizeOfDayView
+{
+    //7 = days in a week
+    CGFloat width = (self.frame.size.width / 7.0f) - (self.padding);
+    CGFloat height = (self.frame.size.height / 6.0f) - (self.padding);
+    return CGSizeMake(width, height);
+}
+
+- (void) removeVisibileDayViews {
+    for (MGDayView *dayView in self.visibileDayViews) {
+        [dayView removeFromSuperview];
+    }
+    [self.visibileDayViews removeAllObjects];
+}
+
+- (void) resetCalendar
+{
+    NSArray *dates = [[NSDate date] datesInCurrentMonth];    
+    int row = 0;
+    int col = 0;
+    for (NSDate *date in dates) {
+        CGRect frame;
+        frame.size = [self sizeOfDayView];
+        frame.origin.x = col*frame.size.width + self.padding*col + self.padding*.5;
+        frame.origin.y = row*frame.size.height + self.padding*row + self.monthLabel.frame.size.height;
+        MGDayView *dayView = [[MGDayView alloc] initWithFrame:frame date:date];
+        dayView.delegate = self;
+        [self addSubview:dayView];
+        [self.visibileDayViews addObject:dayView];
+        
+        //restore defaults
+        dayView.backgroundColor = self.dayViewBackgroundColor;
+        dayView.dateLabel.textColor = self.dayViewTextColor;
+        dayView.dayLabel.textColor = self.dayViewTextColor;
+        dayView.dateLabel.font = self.dayViewDateFont;
+        dayView.dayLabel.font = self.dayViewDayFont;
+        dayView.layer.borderColor = self.dayViewBorderColor.CGColor;
+        dayView.layer.borderWidth = self.dayViewBorderWidth;
+
+        col++;
+        if (col == 7) {
+            col = 0;
+            row++;
+        }
+        
+    }
+    
+    
+}
+
+- (void) setCurrentDate:(NSDate *)currentDate {
+    _currentDate = currentDate;
+    [self reloadData];
+}
+
 #pragma mark - Setting DayView Values
 - (void) setDayViewKey:(NSString*)key value:(id)value
 {
     BOOL isKeyPath = ([key rangeOfString:@"."].location != NSNotFound);
-    for (MGDayView *dayView in visibileDayViews) {
+    for (MGDayView *dayView in self.visibileDayViews) {
         if (isKeyPath)
             [dayView setValue:value forKeyPath:key];
         else
@@ -71,78 +183,6 @@
     [self setDayViewKey:@"dayLabel.textColor" value:dayViewTextColor];
     [self setDayViewKey:@"dateLabel.textColor" value:dayViewTextColor];
     _dayViewTextColor = dayViewTextColor;
-}
-
-- (CGSize) sizeOfDayView
-{
-    //7 = days in a week
-    //6 = max # of rows in a calendar
-    CGFloat width = (self.frame.size.width / 7.0f) - (self.padding);
-    CGFloat height = (self.frame.size.height / 6.0f) - (self.padding);
-    return CGSizeMake(width, height);
-}
-
-- (void) resetCalendar
-{
-    NSArray *dates = [[NSDate date] datesInCurrentMonth];
-    visibileDayViews = [[NSMutableArray alloc] init];
-    
-    int row = 0;
-    int col = 0;
-    for (NSDate *date in dates) {
-        CGRect frame;
-        frame.size = [self sizeOfDayView];
-        frame.origin.x = col*frame.size.width + self.padding*col + self.padding*.5;
-        frame.origin.y = row*frame.size.height + self.padding*row + self.monthLabel.frame.size.height;
-        MGDayView *dayView = [[MGDayView alloc] initWithFrame:frame date:date];
-        dayView.delegate = self;
-        [self addSubview:dayView];
-        [visibileDayViews addObject:dayView];
-        
-        col++;
-        if (col == 7) {
-            col = 0;
-            row++;
-        }
-
-    }
-    
-    
-}
-
-- (id) init {
-    return [self initWithPadding:1];
-}
-
-- (id) initWithPadding:(NSUInteger)padding
-{
-    if (self = [super init]) {
-        NSInteger height = 325;
-        height *= (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 2.1: 1;
-        self.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, height);
-        _padding = padding;
-        
-        currentDate = [NSDate date];
-        [self addSubview:self.monthLabel];
-        
-        [self resetCalendar];
-        
-        //set defaults
-        self.dayViewBackgroundColor = [UIColor colorWithWhite:0.9 alpha:1];
-        self.dayViewTextColor = [UIColor blackColor];
-        self.dayViewDateFont = [UIFont systemFontOfSize:15];
-        self.dayViewDayFont = [UIFont systemFontOfSize:10];
-        self.dayViewBorderColor = [UIColor whiteColor];
-        self.dayViewBorderWidth = .5f;
-
-        self.currentDayViewBackgroundColor = [UIColor colorWithRed:0 green:1.0f blue:0 alpha:1];
-
-        self.selectedDayViewBackgroundColor = [UIColor colorWithRed:0.5 green:0 blue:0.0 alpha:.5];
-        self.selectedDayViewTextColor = [UIColor whiteColor];
-        self.selectedDayViewBorderColor = [UIColor whiteColor];
-        self.selectedDayViewBorderWidth = .5f;
-    }
-    return self;
 }
 
 #pragma mark - MGDayViewDelegate method

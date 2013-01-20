@@ -39,8 +39,8 @@
     calView.selectedDayViewTextColor = [UIColor blackColor];
     calView.selectedDayViewBorderColor = [UIColor greenColor];
     
-    calView.monthLabel.font = [UIFont fontWithName:fontName size:26.0];
-//    calView.backgroundColor = [UIColor grayColor];
+    calView.monthLabel.font = [UIFont fontWithName:fontName size:40.0f];
+    [calView reloadData];
 }
 
 - (void)didReceiveMemoryWarning

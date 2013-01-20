@@ -10,10 +10,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "MGDayView.h"
 
-@interface MGCalendarView : UIView <MGDayViewDelegate> {
-    NSMutableArray *visibileDayViews;
-    NSDate *currentDate;
-}
+@interface MGCalendarView : UIView <MGDayViewDelegate>
 
 //only set on init
 @property (nonatomic, readonly) NSUInteger padding;
@@ -38,5 +35,7 @@
 //optional
 //could just use init (Default padding = 1)
 - (id) initWithPadding:(NSUInteger)padding;
+
+- (void) reloadData;
 
 @end
