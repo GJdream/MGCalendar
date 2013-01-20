@@ -14,6 +14,8 @@
 
 - (NSString*) dateNumber;
 
+- (NSString*) monthName;
+
 - (NSArray*) datesInCurrentMonth;
 
 @end

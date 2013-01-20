@@ -24,6 +24,12 @@
     return [formatter stringFromDate:self];
 }
 
+- (NSString*) monthName {
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"LLLL"];
+    return [formatter stringFromDate:self];
+}
+
 - (NSArray*) datesInCurrentMonth;
 {
     NSCalendar *calendar = [NSCalendar currentCalendar];

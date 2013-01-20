@@ -37,6 +37,8 @@
     view.selectedDayViewBackgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"texture-green"]];
     view.selectedDayViewTextColor = [UIColor blackColor];
     view.selectedDayViewBorderColor = [UIColor greenColor];
+    
+//    view.backgroundColor = [UIColor grayColor];
 }
 
 - (void)didReceiveMemoryWarning

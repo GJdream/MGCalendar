@@ -12,6 +12,7 @@
 
 @interface MGCalendarView : UIView <MGDayViewDelegate> {
     NSMutableArray *visibileDayViews;
+    NSDate *currentDate;
 }
 
 //only set on init

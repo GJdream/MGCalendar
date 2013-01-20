@@ -11,6 +11,25 @@
 
 @implementation MGCalendarView
 
+@synthesize monthLabel = _monthLabel;
+
+- (UILabel*) monthLabel
+{
+    if (!_monthLabel) {
+        CGRect frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height/6.0f - self.padding);
+        _monthLabel = [[UILabel alloc] initWithFrame:frame];
+        _monthLabel.backgroundColor = [UIColor clearColor];
+        _monthLabel.textAlignment = UITextAlignmentCenter;
+        _monthLabel.font = [UIFont systemFontOfSize:24.0f];
+        _monthLabel.text = [currentDate monthName];
+        [_monthLabel sizeToFit];
+        frame.size.width = self.frame.size.width;
+        _monthLabel.frame = frame;
+    }
+    return _monthLabel;
+}
+
+#pragma mark - Setting DayView Values
 - (void) setDayViewKey:(NSString*)key value:(id)value
 {
     BOOL isKeyPath = ([key rangeOfString:@"."].location != NSNotFound);
@@ -73,7 +92,8 @@
     for (NSDate *date in dates) {
         CGRect frame;
         frame.size = [self sizeOfDayView];
-        frame.origin = CGPointMake(col*frame.size.width + self.padding*col + self.padding*.5, row*frame.size.height + self.padding*row);
+        frame.origin.x = col*frame.size.width + self.padding*col + self.padding*.5;
+        frame.origin.y = row*frame.size.height + self.padding*row + self.monthLabel.frame.size.height;
         MGDayView *dayView = [[MGDayView alloc] initWithFrame:frame date:date];
         dayView.delegate = self;
         [self addSubview:dayView];
@@ -101,6 +121,10 @@
         height *= (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 2.1: 1;
         self.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, height);
         _padding = padding;
+        
+        currentDate = [NSDate date];
+        [self addSubview:self.monthLabel];
+        
         [self resetCalendar];
         
         //set defaults
