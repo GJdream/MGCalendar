@@ -10,17 +10,40 @@
 #import "MGDayView.h"
 #import "NSDate+Calendar.h"
 
-//the padding in between DayViews (vertical & horizontal)
-static NSInteger const kMGDayViewPadding = 1;
-
 @implementation MGCalendarView
+
+- (void) setDayViewKey:(NSString*)key value:(id)value isKeyPath:(BOOL)isKeyPath
+{
+    for (MGDayView *dayView in visibileDayViews) {
+        if (isKeyPath)
+            [dayView setValue:value forKeyPath:key];
+        else
+            [dayView setValue:value forKey:key];
+    }
+    
+}
+
+- (void) setDayViewBorderBackgroundColor:(UIColor *)dayViewBorderBackgroundColor {
+    [self setDayViewKey:@"backgroundColor" value:dayViewBorderBackgroundColor isKeyPath:NO];
+    _dayViewBorderBackgroundColor = dayViewBorderBackgroundColor;
+}
+
+- (void) setDayViewBorderColor:(UIColor *)dayViewBorderColor {
+    [self setDayViewKey:@"layer.borderColor" value:(id)dayViewBorderColor.CGColor isKeyPath:YES];
+    _dayViewBorderColor = dayViewBorderColor;
+}
+
+- (void) setDayViewBorderWidth:(CGFloat)dayViewBorderWidth {
+    [self setDayViewKey:@"layer.borderWidth" value:[NSNumber numberWithFloat:dayViewBorderWidth] isKeyPath:YES];
+    _dayViewBorderWidth = dayViewBorderWidth;
+}
 
 - (CGSize) sizeOfDayView
 {
     //7 = days in a week
     //6 = max # of rows in a calendar
-    CGFloat width = (self.frame.size.width / 7.0f);
-    CGFloat height = (self.frame.size.height / 6.0f);
+    CGFloat width = (self.frame.size.width / 7.0f) - (self.padding);
+    CGFloat height = (self.frame.size.height / 6.0f) - (self.padding);
     return CGSizeMake(width, height);
 }
 
@@ -34,7 +57,7 @@ static NSInteger const kMGDayViewPadding = 1;
     for (NSDate *date in dates) {
         CGRect frame;
         frame.size = [self sizeOfDayView];
-        frame.origin = CGPointMake(col*frame.size.width + kMGDayViewPadding*col, row*frame.size.height + kMGDayViewPadding*row);
+        frame.origin = CGPointMake(col*frame.size.width + self.padding*col, row*frame.size.height + self.padding*row);
         MGDayView *dayView = [[MGDayView alloc] initWithFrame:frame date:date];
         [self addSubview:dayView];
         [visibileDayViews addObject:dayView];
@@ -53,9 +76,8 @@ static NSInteger const kMGDayViewPadding = 1;
 - (id) init
 {
     if (self = [super init]) {
-        
-        NSInteger offSet = 10;
-        self.frame = CGRectMake(offSet*.5f, 0, [UIScreen mainScreen].bounds.size.width-offSet, 400);
+        self.padding = 1;
+        self.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 400);
         [self setDefaults];
     }
     return self;

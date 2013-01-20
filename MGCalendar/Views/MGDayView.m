@@ -44,15 +44,16 @@
     [self.dayLabel sizeToFit];
     
     //positions datelabel to top of screen
+    NSInteger offset = 3;
     CGRect frame = self.frame;
-    frame.size.height = self.dateLabel.frame.size.height;
-    frame.origin = CGPointMake(0, 0);
+    frame.size.height = self.dateLabel.frame.size.height-offset;
+    frame.origin = CGPointMake(offset, offset);
+    frame.size.width = self.frame.size.width-offset;
     self.dateLabel.frame = frame;
     
     //position below the dateLabel
-    frame.origin.y = frame.size.height; //2 for a little padding
-    frame.size.width = self.frame.size.width;
-    frame.size.height = self.dayLabel.frame.size.height;
+    frame.origin.y = frame.size.height+offset;
+    frame.size.height = self.dayLabel.frame.size.height-offset;
     self.dayLabel.frame = frame;
 }
 

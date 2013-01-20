@@ -7,9 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <QuartzCore/QuartzCore.h>
 
 @interface MGCalendarView : UIView {
     NSMutableArray *visibileDayViews;
 }
+
+@property (nonatomic) NSUInteger padding;
+
+@property (nonatomic) UIColor *dayViewBorderColor;
+@property (nonatomic) CGFloat dayViewBorderWidth;
+@property (nonatomic) UIColor *dayViewBorderBackgroundColor;
 
 @end
