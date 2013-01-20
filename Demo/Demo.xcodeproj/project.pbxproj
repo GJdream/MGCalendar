@@ -24,6 +24,7 @@
 		4D9B019C16AC4FD400FCA6EB /* MGLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D9B019B16AC4FD400FCA6EB /* MGLabel.m */; };
 		4D9B019F16AC528C00FCA6EB /* NSDate+Calendar.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D9B019E16AC528C00FCA6EB /* NSDate+Calendar.m */; };
 		4D9B01A516AC59D200FCA6EB /* MGCalendarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D9B01A416AC59D200FCA6EB /* MGCalendarView.m */; };
+		4DF35E5516AC83DB000847EF /* ViewController~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4DF35E5416AC83DB000847EF /* ViewController~ipad.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -54,6 +55,7 @@
 		4D9B019E16AC528C00FCA6EB /* NSDate+Calendar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Calendar.m"; sourceTree = "<group>"; };
 		4D9B01A316AC59D200FCA6EB /* MGCalendarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGCalendarView.h; sourceTree = "<group>"; };
 		4D9B01A416AC59D200FCA6EB /* MGCalendarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGCalendarView.m; sourceTree = "<group>"; };
+		4DF35E5416AC83DB000847EF /* ViewController~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "ViewController~ipad.xib"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +109,7 @@
 				4D9B017A16AC4BDE00FCA6EB /* ViewController.h */,
 				4D9B017B16AC4BDE00FCA6EB /* ViewController.m */,
 				4D9B017D16AC4BDE00FCA6EB /* ViewController.xib */,
+				4DF35E5416AC83DB000847EF /* ViewController~ipad.xib */,
 				4D9B016916AC4BDE00FCA6EB /* Supporting Files */,
 			);
 			path = Demo;
@@ -217,6 +220,7 @@
 				4D9B017916AC4BDE00FCA6EB /* Default-568h@2x.png in Resources */,
 				4D9B017F16AC4BDE00FCA6EB /* ViewController.xib in Resources */,
 				4D4AD81416AC722100F31B43 /* texture-gray.png in Resources */,
+				4DF35E5516AC83DB000847EF /* ViewController~ipad.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -316,7 +320,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Demo/Demo-Prefix.pch";
 				INFOPLIST_FILE = "Demo/Demo-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
@@ -329,7 +333,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Demo/Demo-Prefix.pch";
 				INFOPLIST_FILE = "Demo/Demo-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;

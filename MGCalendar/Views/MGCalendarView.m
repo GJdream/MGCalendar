@@ -92,7 +92,7 @@
 {
     if (self = [super init]) {
         NSInteger height = 325;
-        height *= (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 2.4 : 1;
+        height *= (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 2.1: 1;
         self.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, height);
         _padding = padding;
         [self resetCalendar];
