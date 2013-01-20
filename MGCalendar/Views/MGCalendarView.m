@@ -91,7 +91,9 @@
 - (id) initWithPadding:(NSUInteger)padding
 {
     if (self = [super init]) {
-        self.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 325);
+        NSInteger height = 325;
+        height *= (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 2.4 : 1;
+        self.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, height);
         _padding = padding;
         [self resetCalendar];
     }
