@@ -38,11 +38,6 @@
     _dayViewBorderWidth = dayViewBorderWidth;
 }
 
-- (void) setPadding:(NSUInteger)padding {
-    _padding = padding;
-    [self resetCalendar];
-}
-
 - (CGSize) sizeOfDayView
 {
     //7 = days in a week
@@ -62,7 +57,7 @@
     for (NSDate *date in dates) {
         CGRect frame;
         frame.size = [self sizeOfDayView];
-        frame.origin = CGPointMake(col*frame.size.width + self.padding*col, row*frame.size.height + self.padding*row);
+        frame.origin = CGPointMake(col*frame.size.width + self.padding*col + self.padding*.5, row*frame.size.height + self.padding*row);
         MGDayView *dayView = [[MGDayView alloc] initWithFrame:frame date:date];
         [self addSubview:dayView];
         [visibileDayViews addObject:dayView];
@@ -86,7 +81,8 @@
 {
     if (self = [super init]) {
         self.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 325);
-        self.padding = padding;
+        _padding = padding;
+        [self resetCalendar];
     }
     return self;
 }

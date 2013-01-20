@@ -13,7 +13,8 @@
     NSMutableArray *visibileDayViews;
 }
 
-@property (nonatomic) NSUInteger padding;
+//only set on init
+@property (nonatomic, readonly) NSUInteger padding;
 
 @property (nonatomic) UIColor *dayViewBorderColor;
 @property (nonatomic) CGFloat dayViewBorderWidth;

@@ -28,7 +28,6 @@
     view.dayViewBorderColor = [UIColor colorWithWhite:85 alpha:1];
     view.dayViewBorderWidth = .5f;
     
-    
 }
 
 - (void)didReceiveMemoryWarning
