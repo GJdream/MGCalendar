@@ -10,17 +10,23 @@
 
 @implementation MGLabel
 
+- (void) setFontSize:(CGFloat)fontSize
+{
+    self.font = [UIFont fontWithName:self.font.fontName size:fontSize];
+    _fontSize = fontSize;
+}
+
+
+- (void) setFont:(UIFont *)font {
+    _fontSize = font.pointSize;
+    [super setFont:font];
+}
+
 - (void) setDefaults {
     self.backgroundColor = [UIColor clearColor];
     self.minimumFontSize = 8;
     _fontSize = 12;
     self.font = [UIFont fontWithName:@"HelveticaNeue" size:self.fontSize];
-}
-
-- (void) setFontSize:(CGFloat)fontSize
-{
-    self.font = [UIFont fontWithName:self.font.fontName size:fontSize];
-    _fontSize = fontSize;
 }
 
 - (id) init

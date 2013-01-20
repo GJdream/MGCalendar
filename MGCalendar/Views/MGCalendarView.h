@@ -19,6 +19,8 @@
 @property (nonatomic) UIColor *dayViewBorderColor;
 @property (nonatomic) CGFloat dayViewBorderWidth;
 @property (nonatomic) UIColor *dayViewBorderBackgroundColor;
+@property (nonatomic) UIFont *dayViewDateFont;
+@property (nonatomic) UIFont *dayViewDayFont;
 
 //optional
 //could just use init (Default padding = 1)

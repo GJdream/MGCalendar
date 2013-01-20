@@ -12,8 +12,9 @@
 
 @implementation MGCalendarView
 
-- (void) setDayViewKey:(NSString*)key value:(id)value isKeyPath:(BOOL)isKeyPath
+- (void) setDayViewKey:(NSString*)key value:(id)value
 {
+    BOOL isKeyPath = ([key rangeOfString:@"."].location != NSNotFound);
     for (MGDayView *dayView in visibileDayViews) {
         if (isKeyPath)
             [dayView setValue:value forKeyPath:key];
@@ -24,18 +25,28 @@
 }
 
 - (void) setDayViewBorderBackgroundColor:(UIColor *)dayViewBorderBackgroundColor {
-    [self setDayViewKey:@"backgroundColor" value:dayViewBorderBackgroundColor isKeyPath:NO];
+    [self setDayViewKey:@"backgroundColor" value:dayViewBorderBackgroundColor];
     _dayViewBorderBackgroundColor = dayViewBorderBackgroundColor;
 }
 
 - (void) setDayViewBorderColor:(UIColor *)dayViewBorderColor {
-    [self setDayViewKey:@"layer.borderColor" value:(id)dayViewBorderColor.CGColor isKeyPath:YES];
+    [self setDayViewKey:@"layer.borderColor" value:(id)dayViewBorderColor.CGColor];
     _dayViewBorderColor = dayViewBorderColor;
 }
 
 - (void) setDayViewBorderWidth:(CGFloat)dayViewBorderWidth {
-    [self setDayViewKey:@"layer.borderWidth" value:[NSNumber numberWithFloat:dayViewBorderWidth] isKeyPath:YES];
+    [self setDayViewKey:@"layer.borderWidth" value:[NSNumber numberWithFloat:dayViewBorderWidth]];
     _dayViewBorderWidth = dayViewBorderWidth;
+}
+
+- (void) setDayViewDayFont:(UIFont *)dayViewDayFont {
+    [self setDayViewKey:@"dayLabel.font" value:dayViewDayFont];
+    _dayViewDayFont = dayViewDayFont;
+}
+
+- (void) setDayViewDateFont:(UIFont *)dayViewDateFont {
+    [self setDayViewKey:@"dateLabel.font" value:dayViewDateFont];
+    _dayViewDateFont = dayViewDateFont;
 }
 
 - (CGSize) sizeOfDayView
