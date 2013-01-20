@@ -19,7 +19,7 @@
 {
     [super viewDidLoad];
 
-    MGCalendarView *view = [[MGCalendarView alloc] init];
+    MGCalendarView *view = [[MGCalendarView alloc] initWithPadding:5];
     view.center = self.view.center;
     [self.view addSubview:view];
     

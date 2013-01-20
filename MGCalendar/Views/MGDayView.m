@@ -18,7 +18,7 @@
 {
     if (!_dateLabel) {
         _dateLabel = [[MGLabel alloc] init];
-        _dateLabel.fontSize = 18;
+        _dateLabel.fontSize = 15;
     }
     return _dateLabel;
 }
@@ -27,7 +27,7 @@
 {
     if (!_dayLabel) {
         _dayLabel = [[MGLabel alloc] init];
-        _dayLabel.fontSize = 15;
+        _dayLabel.fontSize = 10;
     }
     return _dayLabel;
 }

@@ -12,7 +12,7 @@
 
 - (void) setDefaults {
     self.backgroundColor = [UIColor clearColor];
-    
+    self.minimumFontSize = 8;
     _fontSize = 12;
     self.font = [UIFont fontWithName:@"HelveticaNeue" size:self.fontSize];
 }

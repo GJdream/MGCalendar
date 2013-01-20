@@ -19,4 +19,8 @@
 @property (nonatomic) CGFloat dayViewBorderWidth;
 @property (nonatomic) UIColor *dayViewBorderBackgroundColor;
 
+//optional
+//could just use init (Default padding = 1)
+- (id) initWithPadding:(NSUInteger)padding;
+
 @end
