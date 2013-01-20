@@ -8,7 +8,6 @@
 
 #import "MGCalendarView.h"
 #import "NSDate+Calendar.h"
-#import "MGLabel.h"
 
 @implementation MGCalendarView
 

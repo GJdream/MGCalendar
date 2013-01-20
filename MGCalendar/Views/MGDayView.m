@@ -7,27 +7,26 @@
 //
 
 #import "MGDayView.h"
-#import "MGLabel.h"
 #import "NSDate+Calendar.h"
 
 @implementation MGDayView
 
 @synthesize dateLabel = _dateLabel, dayLabel = _dayLabel, date = _date;
 
-- (MGLabel*) dateLabel
+- (UILabel*) dateLabel
 {
     if (!_dateLabel) {
-        _dateLabel = [[MGLabel alloc] init];
-        _dateLabel.fontSize = 15;
+        _dateLabel = [[UILabel alloc] init];
+        _dateLabel.backgroundColor = [UIColor clearColor];
     }
     return _dateLabel;
 }
 
-- (MGLabel*) dayLabel
+- (UILabel*) dayLabel
 {
     if (!_dayLabel) {
-        _dayLabel = [[MGLabel alloc] init];
-        _dayLabel.fontSize = 10;
+        _dayLabel = [[UILabel alloc] init];
+        _dayLabel.backgroundColor = [UIColor clearColor];
     }
     return _dayLabel;
 }

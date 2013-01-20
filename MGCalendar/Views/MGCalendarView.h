@@ -17,6 +17,8 @@
 //only set on init
 @property (nonatomic, readonly) NSUInteger padding;
 
+@property (nonatomic, readonly) UILabel *monthLabel;
+
 @property (nonatomic) UIColor *dayViewBorderColor;
 @property (nonatomic) CGFloat dayViewBorderWidth;
 @property (nonatomic) UIColor *dayViewBackgroundColor;

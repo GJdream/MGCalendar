@@ -21,7 +21,6 @@
 		4D9B017F16AC4BDE00FCA6EB /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D9B017D16AC4BDE00FCA6EB /* ViewController.xib */; };
 		4D9B019616AC4DE400FCA6EB /* MGDayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D9B019316AC4DE400FCA6EB /* MGDayView.m */; };
 		4D9B019716AC4DE400FCA6EB /* MGDotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D9B019516AC4DE400FCA6EB /* MGDotView.m */; };
-		4D9B019C16AC4FD400FCA6EB /* MGLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D9B019B16AC4FD400FCA6EB /* MGLabel.m */; };
 		4D9B019F16AC528C00FCA6EB /* NSDate+Calendar.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D9B019E16AC528C00FCA6EB /* NSDate+Calendar.m */; };
 		4D9B01A516AC59D200FCA6EB /* MGCalendarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D9B01A416AC59D200FCA6EB /* MGCalendarView.m */; };
 		4DF35E5516AC83DB000847EF /* ViewController~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4DF35E5416AC83DB000847EF /* ViewController~ipad.xib */; };
@@ -49,8 +48,6 @@
 		4D9B019316AC4DE400FCA6EB /* MGDayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGDayView.m; sourceTree = "<group>"; };
 		4D9B019416AC4DE400FCA6EB /* MGDotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGDotView.h; sourceTree = "<group>"; };
 		4D9B019516AC4DE400FCA6EB /* MGDotView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGDotView.m; sourceTree = "<group>"; };
-		4D9B019A16AC4FD400FCA6EB /* MGLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGLabel.h; sourceTree = "<group>"; };
-		4D9B019B16AC4FD400FCA6EB /* MGLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGLabel.m; sourceTree = "<group>"; };
 		4D9B019D16AC528C00FCA6EB /* NSDate+Calendar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Calendar.h"; sourceTree = "<group>"; };
 		4D9B019E16AC528C00FCA6EB /* NSDate+Calendar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Calendar.m"; sourceTree = "<group>"; };
 		4D9B01A316AC59D200FCA6EB /* MGCalendarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGCalendarView.h; sourceTree = "<group>"; };
@@ -148,8 +145,6 @@
 				4D9B019316AC4DE400FCA6EB /* MGDayView.m */,
 				4D9B019416AC4DE400FCA6EB /* MGDotView.h */,
 				4D9B019516AC4DE400FCA6EB /* MGDotView.m */,
-				4D9B019A16AC4FD400FCA6EB /* MGLabel.h */,
-				4D9B019B16AC4FD400FCA6EB /* MGLabel.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -236,7 +231,6 @@
 				4D9B017C16AC4BDE00FCA6EB /* ViewController.m in Sources */,
 				4D9B019616AC4DE400FCA6EB /* MGDayView.m in Sources */,
 				4D9B019716AC4DE400FCA6EB /* MGDotView.m in Sources */,
-				4D9B019C16AC4FD400FCA6EB /* MGLabel.m in Sources */,
 				4D9B019F16AC528C00FCA6EB /* NSDate+Calendar.m in Sources */,
 				4D9B01A516AC59D200FCA6EB /* MGCalendarView.m in Sources */,
 			);
