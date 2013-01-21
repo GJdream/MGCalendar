@@ -16,6 +16,7 @@
 @property (nonatomic, readonly) NSUInteger padding;
 
 @property (nonatomic, readonly) UILabel *monthLabel;
+@property (nonatomic, readonly) UILabel *yearLabel;
 
 @property (nonatomic) UIColor *dayViewBorderColor;
 @property (nonatomic) CGFloat dayViewBorderWidth;

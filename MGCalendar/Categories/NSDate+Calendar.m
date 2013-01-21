@@ -30,6 +30,12 @@
     return [formatter stringFromDate:self];
 }
 
+- (NSString*) yearShorthand {
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"yy"];
+    return [formatter stringFromDate:self];
+}
+
 - (NSArray*) datesInCurrentMonth;
 {
     NSCalendar *calendar = [NSCalendar currentCalendar];

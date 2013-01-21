@@ -17,7 +17,7 @@
 
 @implementation MGCalendarView
 
-@synthesize monthLabel = _monthLabel, visibileDayViews = _visibileDayViews, currentDate = _currentDate;
+@synthesize monthLabel = _monthLabel, visibileDayViews = _visibileDayViews, currentDate = _currentDate, yearLabel = _yearLabel;
 
 - (NSDate*) currentDate {
     if (!_currentDate)
@@ -39,9 +39,20 @@
         _monthLabel.backgroundColor = [UIColor clearColor];
         _monthLabel.textAlignment = UITextAlignmentCenter;
         _monthLabel.font = [UIFont systemFontOfSize:30.0f];
-        _monthLabel.text = [self.currentDate monthName];
     }
     return _monthLabel;
+}
+
+- (UILabel*) yearLabel {
+    if (!_yearLabel) {
+        CGFloat height = [self sizeOfDayView].height*.5;
+        CGRect frame = CGRectMake(0, height, self.frame.size.width-2, height);
+        _yearLabel = [[UILabel alloc] initWithFrame:frame];
+        _yearLabel.backgroundColor = [UIColor clearColor];
+        _yearLabel.textAlignment = UITextAlignmentRight;
+        _yearLabel.font = [UIFont systemFontOfSize:15.0f];
+    }
+    return _yearLabel;
 }
 
 - (CATransition*) transitionAnimation {
@@ -65,6 +76,7 @@
         _padding = padding;
         
         [self addSubview:self.monthLabel];
+        [self addSubview:self.yearLabel];
         
         //set defaults
         self.dayViewBackgroundColor = [UIColor colorWithWhite:0.9 alpha:1];
@@ -146,7 +158,8 @@
         }
         
     }
-    _monthLabel.text = [self.currentDate monthName];
+    self.monthLabel.text = [self.currentDate monthName];
+    self.yearLabel.text = [self.currentDate yearShorthand];
 }
 
 - (void) setCurrentDate:(NSDate *)currentDate {

@@ -11,10 +11,9 @@
 @interface NSDate (Calendar)
 
 - (NSString*) dayName;
-
 - (NSString*) dateNumber;
-
 - (NSString*) monthName;
+- (NSString*) yearShorthand;
 
 - (NSArray*) datesInCurrentMonth;
 
