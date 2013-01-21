@@ -21,6 +21,7 @@
 @property (nonatomic, readonly) NSDate *date;
 @property (nonatomic, readonly) UILabel *dateLabel;
 @property (nonatomic, readonly) UILabel *dayLabel;
+@property (nonatomic, readonly) MGDotView *dotView; //hidden by default
 
 - (id)initWithFrame:(CGRect)frame date:(NSDate*)date;
 

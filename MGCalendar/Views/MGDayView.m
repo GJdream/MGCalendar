@@ -8,10 +8,11 @@
 
 #import "MGDayView.h"
 #import "NSDate+Calendar.h"
+#import "MGDotView.h"
 
 @implementation MGDayView
 
-@synthesize dateLabel = _dateLabel, dayLabel = _dayLabel, date = _date;
+@synthesize dateLabel = _dateLabel, dayLabel = _dayLabel, date = _date, dotView = _dotView;
 
 - (UILabel*) dateLabel
 {
@@ -31,10 +32,20 @@
     return _dayLabel;
 }
 
+- (MGDotView*) dotView
+{
+    if (!_dotView) {
+        _dotView = [[MGDotView alloc] init];
+        _dotView.backgroundColor = [UIColor colorWithRed:0 green:0.5f blue:0 alpha:.5];
+    }
+    return _dotView;
+}
+
 - (void) setDefaults
 {
     [self addSubview:self.dateLabel];
     [self addSubview:self.dayLabel];
+    [self addSubview:self.dotView];
     
     self.dayLabel.text = [[self.date dayName] uppercaseString];
     self.dateLabel.text = [self.date dateNumber];
@@ -45,15 +56,23 @@
     //positions datelabel to top of screen
     NSInteger offset = 3;
     CGRect frame = self.frame;
-    frame.size.height = self.dateLabel.frame.size.height-offset;
+    frame.size.height = self.dateLabel.frame.size.height;
     frame.origin = CGPointMake(offset, offset);
     frame.size.width = self.frame.size.width-offset;
     self.dateLabel.frame = frame;
     
-    //position below the dateLabel
-    frame.origin.y = frame.size.height+offset;
-    frame.size.height = self.dayLabel.frame.size.height-offset;
+    //position below the dayLabel
+    frame.origin.y = frame.size.height-offset;
+    frame.size.height = self.dayLabel.frame.size.height;
     self.dayLabel.frame = frame;
+    
+    //position dotView in bottom right of view
+    frame.origin.y = self.dayLabel.frame.origin.y + self.dayLabel.frame.size.height;
+    frame.size = self.dotView.frame.size;
+    frame.origin.x = frame.size.width;
+    self.dotView.frame = frame;
+    
+    self.dotView.hidden = YES;
 }
 
 - (id)initWithFrame:(CGRect)frame date:(NSDate*)date

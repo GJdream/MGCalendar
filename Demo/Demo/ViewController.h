@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MGCalendarView.h"
 
-@interface ViewController : UIViewController
+@interface ViewController : UIViewController <MGCalendarViewDelegate>
 
 @end

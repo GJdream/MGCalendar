@@ -8,6 +8,7 @@
 
 #import "MGCalendarView.h"
 #import "NSDate+Calendar.h"
+#import "MGDotView.h"
 
 @interface MGCalendarView ()
 @property (nonatomic) NSMutableArray *visibileDayViews;
@@ -154,6 +155,13 @@ int iPadModefier() {
         dayView.layer.borderColor = self.dayViewBorderColor.CGColor;
         dayView.layer.borderWidth = self.dayViewBorderWidth;
 
+        for (NSDate *markedDate in [self.delegate calendarMarkedDates]) {
+            BOOL isSameDay = [markedDate isSameDayAs:date];
+            NSLog(isSameDay ? @"Yes" : @"No");
+            dayView.dotView.hidden = !isSameDay;
+            NSLog(@"isHidden - %@", dayView.dotView.hidden ? @"Yes" : @"No");
+        }
+        
         col++;
         if (col == 7) {
             col = 0;

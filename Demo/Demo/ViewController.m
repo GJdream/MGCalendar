@@ -7,7 +7,6 @@
 //
 
 #import "ViewController.h"
-#import "MGCalendarView.h"
 
 @interface ViewController ()
 
@@ -23,6 +22,7 @@
     
     MGCalendarView *calView = [[MGCalendarView alloc] initWithPadding:5];
     calView.center = self.view.center;
+    calView.delegate = self;
     [self.view addSubview:calView];
     
     UIImage *texture = [UIImage imageNamed:@"texture-gray"];
@@ -40,10 +40,21 @@
     calView.selectedDayViewBorderColor = [UIColor greenColor];
     
     calView.monthLabel.font = [UIFont fontWithName:fontName size:40.0f];
-//    [calView reloadData];
+    [calView reloadData];
     
 //    calView.backgroundColor = [UIColor grayColor];
 }
 
+//jsut a helper method for creating fake dates to be marked!
+- (NSDate*) currentDateWithDaysOffset:(NSInteger)offset {
+    NSDate *currentDate = [NSDate date];
+    return [currentDate dateByAddingTimeInterval:60*60*24*offset];
+}
+
+- (NSArray*) calendarMarkedDates {
+    NSDate *dayBefore = [self currentDateWithDaysOffset:-2];
+    NSDate *daysAfter = [self currentDateWithDaysOffset:3];
+    return @[dayBefore, daysAfter];
+}
 
 @end

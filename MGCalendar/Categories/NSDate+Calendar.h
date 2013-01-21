@@ -20,4 +20,6 @@
 - (NSDate*) nextMonth;
 - (NSDate*) previousMonth;
 
+- (BOOL) isSameDayAs:(NSDate*)date;
+
 @end

@@ -10,6 +10,10 @@
 
 @implementation NSDate (Calendar)
 
+NSUInteger defaultComponents() {
+    return (NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit | NSEraCalendarUnit);
+}
+
 - (NSString*) dayName
 {
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
@@ -43,7 +47,7 @@
     NSMutableArray *datesThisMonth = [NSMutableArray array];
     NSRange rangeOfDaysThisMonth = [calendar rangeOfUnit:NSDayCalendarUnit inUnit:NSMonthCalendarUnit forDate:self];
     
-    NSDateComponents *components = [calendar components:(NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit | NSEraCalendarUnit) fromDate:self];
+    NSDateComponents *components = [calendar components:defaultComponents() fromDate:self];
     [components setHour:0];
     [components setMinute:0];
     [components setSecond:0];
@@ -68,6 +72,15 @@
 }
 - (NSDate*) previousMonth {
     return [self dateWithMonthOffset:-1];
+}
+
+- (BOOL) isSameDayAs:(NSDate*)date {
+    NSCalendar *cal = [NSCalendar currentCalendar];
+    NSDateComponents *selfComp = [cal components:defaultComponents() fromDate:self];
+    NSDateComponents *dateComp = [cal components:defaultComponents() fromDate:date];
+    return [selfComp day]   == [dateComp day] &&
+            [selfComp month] == [dateComp month] &&
+            [selfComp year]  == [dateComp year];    
 }
 
 @end

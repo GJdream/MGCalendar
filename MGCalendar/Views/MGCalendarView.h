@@ -10,7 +10,14 @@
 #import <QuartzCore/QuartzCore.h>
 #import "MGDayView.h"
 
+@protocol MGCalendarViewDelegate <NSObject>
+@optional
+- (NSArray*) calendarMarkedDates;
+@end
+
 @interface MGCalendarView : UIView <MGDayViewDelegate>
+
+@property (nonatomic) id<MGCalendarViewDelegate> delegate;
 
 //only set on init
 @property (nonatomic, readonly) NSUInteger padding;
