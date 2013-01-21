@@ -155,12 +155,14 @@ int iPadModefier() {
         dayView.layer.borderColor = self.dayViewBorderColor.CGColor;
         dayView.layer.borderWidth = self.dayViewBorderWidth;
 
+        //set dotView to hide/unhide depending on calendarMarkedDates from delegate
+        BOOL doesNotContainMarkedDate = YES;
         for (NSDate *markedDate in [self.delegate calendarMarkedDates]) {
-            BOOL isSameDay = [markedDate isSameDayAs:date];
-            NSLog(isSameDay ? @"Yes" : @"No");
-            dayView.dotView.hidden = !isSameDay;
-            NSLog(@"isHidden - %@", dayView.dotView.hidden ? @"Yes" : @"No");
+            if ([markedDate isSameDayAs:date]) {
+                doesNotContainMarkedDate = NO;
+            }
         }
+        dayView.dotView.hidden = doesNotContainMarkedDate;
         
         col++;
         if (col == 7) {

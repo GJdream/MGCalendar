@@ -37,6 +37,7 @@
     if (!_dotView) {
         _dotView = [[MGDotView alloc] init];
         _dotView.backgroundColor = [UIColor colorWithRed:0 green:0.5f blue:0 alpha:.5];
+        _dotView.hidden = YES;
     }
     return _dotView;
 }
@@ -71,8 +72,6 @@
     frame.size = self.dotView.frame.size;
     frame.origin.x = frame.size.width;
     self.dotView.frame = frame;
-    
-    self.dotView.hidden = YES;
 }
 
 - (id)initWithFrame:(CGRect)frame date:(NSDate*)date
