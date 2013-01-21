@@ -19,6 +19,10 @@
 
 @synthesize monthLabel = _monthLabel, visibileDayViews = _visibileDayViews, currentDate = _currentDate, yearLabel = _yearLabel;
 
+BOOL isiPad() {
+    return UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad;
+}
+
 - (NSDate*) currentDate {
     if (!_currentDate)
         _currentDate = [NSDate date];
@@ -46,7 +50,7 @@
 - (UILabel*) yearLabel {
     if (!_yearLabel) {
         CGFloat height = [self sizeOfDayView].height*.5;
-        CGRect frame = CGRectMake(0, height, self.frame.size.width-2, height);
+        CGRect frame = CGRectMake(0, height, self.frame.size.width-3, height);
         _yearLabel = [[UILabel alloc] initWithFrame:frame];
         _yearLabel.backgroundColor = [UIColor clearColor];
         _yearLabel.textAlignment = UITextAlignmentRight;
@@ -69,9 +73,9 @@
 
 - (id) initWithPadding:(NSUInteger)padding
 {
-    if (self = [super init]) {
+    if (self = [super init]) {        
         NSInteger height = 325;
-        height *= (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 2.1: 1;
+        height *= (isiPad()) ? 2.1: 1;
         self.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, height);
         _padding = padding;
         
