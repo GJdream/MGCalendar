@@ -21,7 +21,9 @@
     self.view.backgroundColor = [UIColor colorWithWhite:.8 alpha:1];
     
     MGCalendarView *calView = [[MGCalendarView alloc] initWithPadding:5];
-    calView.center = self.view.center;
+    CGPoint center = self.view.center;
+    center.y = calView.frame.size.height*.5;
+    calView.center = center;
     calView.delegate = self;
     [self.view addSubview:calView];
     

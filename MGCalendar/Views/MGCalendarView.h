@@ -31,6 +31,7 @@
 @property (nonatomic) UIFont *dayViewDateFont;
 @property (nonatomic) UIFont *dayViewDayFont;
 @property (nonatomic) UIColor *dayViewTextColor;
+@property (nonatomic) UIColor *dayViewDotColor;
 
 @property (nonatomic) UIColor *currentDayViewBackgroundColor;
 

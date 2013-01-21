@@ -89,11 +89,12 @@ int iPadModefier() {
         self.dayViewDateFont = [UIFont systemFontOfSize:15];
         self.dayViewDayFont = [UIFont systemFontOfSize:10];
         self.dayViewBorderColor = [UIColor whiteColor];
+        self.dayViewDotColor = [UIColor colorWithRed:0.0 green:0.5 blue:0 alpha:.5];
         self.dayViewBorderWidth = .5f;
         
         self.currentDayViewBackgroundColor = [UIColor colorWithRed:0 green:1.0f blue:0 alpha:1];
         
-        self.selectedDayViewBackgroundColor = [UIColor colorWithRed:0.5 green:0 blue:0.0 alpha:.5];
+        self.selectedDayViewBackgroundColor = [UIColor colorWithRed:0 green:.5 blue:0.0 alpha:.35];
         self.selectedDayViewTextColor = [UIColor whiteColor];
         self.selectedDayViewBorderColor = [UIColor whiteColor];
         self.selectedDayViewBorderWidth = .5f;
@@ -154,6 +155,7 @@ int iPadModefier() {
         dayView.dayLabel.font = self.dayViewDayFont;
         dayView.layer.borderColor = self.dayViewBorderColor.CGColor;
         dayView.layer.borderWidth = self.dayViewBorderWidth;
+        dayView.dotView.backgroundColor = self.dayViewDotColor;
 
         //set dotView to hide/unhide depending on calendarMarkedDates from delegate
         BOOL doesNotContainMarkedDate = YES;
@@ -237,6 +239,11 @@ int iPadModefier() {
     [self setDayViewKey:@"dayLabel.textColor" value:dayViewTextColor];
     [self setDayViewKey:@"dateLabel.textColor" value:dayViewTextColor];
     _dayViewTextColor = dayViewTextColor;
+}
+
+- (void) setDayViewDotColor:(UIColor *)dayViewDotColor {
+    [self setDayViewKey:@"dotView.backgroundColor" value:dayViewDotColor];
+    _dayViewDotColor = dayViewDotColor;
 }
 
 #pragma mark - MGDayViewDelegate method
