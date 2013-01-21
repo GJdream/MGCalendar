@@ -11,7 +11,8 @@
 
 @interface MGCalendarView ()
 @property (nonatomic) NSMutableArray *visibileDayViews;
-@property (nonatomic) NSDate *currentDate;
+@property (nonatomic) NSDate *currentDate; //can be offseted from todayDate (i.e. previous month from today) 
+@property (nonatomic, readonly) NSDate *todayDate;
 
 @end
 
@@ -19,8 +20,8 @@
 
 @synthesize monthLabel = _monthLabel, visibileDayViews = _visibileDayViews, currentDate = _currentDate, yearLabel = _yearLabel;
 
-BOOL isiPad() {
-    return UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad;
+int iPadModefier() {
+    return UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad ? 2.1 : 1;
 }
 
 - (NSDate*) currentDate {
@@ -74,8 +75,7 @@ BOOL isiPad() {
 - (id) initWithPadding:(NSUInteger)padding
 {
     if (self = [super init]) {        
-        NSInteger height = 325;
-        height *= (isiPad()) ? 2.1: 1;
+        NSInteger height = [self sizeOfDayView].height * 7.0f;
         self.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, height);
         _padding = padding;
         
@@ -104,7 +104,6 @@ BOOL isiPad() {
         swipeGesture = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeLeftGestureDetected:)];
         swipeGesture.direction = UISwipeGestureRecognizerDirectionLeft;
         [self addGestureRecognizer:swipeGesture];
-
         
         [self resetCalendar];
     }
@@ -120,7 +119,7 @@ BOOL isiPad() {
 {
     //7 = days in a week
     CGFloat width = (self.frame.size.width / 7.0f) - (self.padding);
-    CGFloat height = (self.frame.size.height / 6.0f) - (self.padding);
+    CGFloat height = (54 * iPadModefier()) - self.padding;
     return CGSizeMake(width, height);
 }
 
