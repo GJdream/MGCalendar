@@ -41,6 +41,10 @@
     calView.selectedDayViewTextColor = [UIColor blackColor];
     calView.selectedDayViewBorderColor = [UIColor greenColor];
     
+    calView.currentDayViewBackgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"texture-purple"]];
+    calView.currentDayViewBorderColor = [UIColor colorWithRed:.933333333 green:.509803922 blue:.933333333 alpha:1];
+    calView.currentDayViewTextColor = [UIColor blackColor];
+
     calView.monthLabel.font = [UIFont fontWithName:fontName size:40.0f];
     [calView reloadData];
     
@@ -53,6 +57,8 @@
     return [currentDate dateByAddingTimeInterval:60*60*24*offset];
 }
 
+
+#pragma mark - MGCalendarViewDelegate methods
 - (NSArray*) calendarMarkedDates {
     NSDate *dayBefore = [self currentDateWithDaysOffset:-2];
     NSDate *daysAfter = [self currentDateWithDaysOffset:3];

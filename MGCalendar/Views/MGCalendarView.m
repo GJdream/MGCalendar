@@ -10,10 +10,12 @@
 #import "NSDate+Calendar.h"
 #import "MGDotView.h"
 
-@interface MGCalendarView ()
+@interface MGCalendarView () {
+    MGDayView *currentDayView;
+}
+
 @property (nonatomic) NSMutableArray *visibileDayViews;
 @property (nonatomic) NSDate *currentDate; //can be offseted from todayDate (i.e. previous month from today) 
-@property (nonatomic, readonly) NSDate *todayDate;
 
 @end
 
@@ -70,7 +72,7 @@ int iPadModefier() {
 }
 
 - (id) init {
-    return [self initWithPadding:1];
+    return [self initWithPadding:5];
 }
 
 - (id) initWithPadding:(NSUInteger)padding
@@ -92,13 +94,14 @@ int iPadModefier() {
         self.dayViewDotColor = [UIColor colorWithRed:0.0 green:0.5 blue:0 alpha:.5];
         self.dayViewBorderWidth = .5f;
         
-        self.currentDayViewBackgroundColor = [UIColor colorWithRed:0 green:1.0f blue:0 alpha:1];
-        
         self.selectedDayViewBackgroundColor = [UIColor colorWithRed:0 green:.5 blue:0.0 alpha:.35];
         self.selectedDayViewTextColor = [UIColor whiteColor];
         self.selectedDayViewBorderColor = [UIColor whiteColor];
-        self.selectedDayViewBorderWidth = .5f;
         
+        self.currentDayViewBackgroundColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.5 alpha:.5];
+        self.currentDayViewBorderColor = [UIColor blueColor];;
+        self.currentDayViewTextColor = self.selectedDayViewBorderColor;
+
         UISwipeGestureRecognizer *swipeGesture = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeRightGestureDetected:)];
         swipeGesture.direction = UISwipeGestureRecognizerDirectionRight;
         [self addGestureRecognizer:swipeGesture];
@@ -146,16 +149,9 @@ int iPadModefier() {
         dayView.delegate = self;
         [self addSubview:dayView];
         [self.visibileDayViews addObject:dayView];
-        
-        //restore defaults
-        dayView.backgroundColor = self.dayViewBackgroundColor;
-        dayView.dateLabel.textColor = self.dayViewTextColor;
-        dayView.dayLabel.textColor = self.dayViewTextColor;
-        dayView.dateLabel.font = self.dayViewDateFont;
-        dayView.dayLabel.font = self.dayViewDayFont;
-        dayView.layer.borderColor = self.dayViewBorderColor.CGColor;
-        dayView.layer.borderWidth = self.dayViewBorderWidth;
-        dayView.dotView.backgroundColor = self.dayViewDotColor;
+    
+        //reset defaults
+        [self resetValuesForDayView:dayView];
 
         //set dotView to hide/unhide depending on calendarMarkedDates from delegate
         BOOL doesNotContainMarkedDate = YES;
@@ -166,6 +162,7 @@ int iPadModefier() {
         }
         dayView.dotView.hidden = doesNotContainMarkedDate;
         
+        //update for frame positioning
         col++;
         if (col == 7) {
             col = 0;
@@ -177,9 +174,32 @@ int iPadModefier() {
     self.yearLabel.text = [self.currentDate yearShorthand];
 }
 
-- (void) setCurrentDate:(NSDate *)currentDate {
-    _currentDate = currentDate;
-    [self reloadData];
+- (void) resetValuesForDayView:(MGDayView*)dayView
+{
+    BOOL isToday = [dayView.date isSameDayAs:[NSDate date]];
+    if (isToday) currentDayView = dayView;
+    dayView.backgroundColor = isToday ? self.currentDayViewBackgroundColor : self.dayViewBackgroundColor;
+    dayView.dateLabel.textColor = isToday ? self.currentDayViewTextColor : self.dayViewTextColor;
+    dayView.dayLabel.textColor = isToday ? self.currentDayViewTextColor : self.dayViewTextColor;
+    dayView.layer.borderColor = isToday ? self.currentDayViewBorderColor.CGColor : self.dayViewBorderColor.CGColor;
+    dayView.layer.borderWidth = self.dayViewBorderWidth;
+    dayView.dateLabel.font = self.dayViewDateFont;
+    dayView.dayLabel.font = self.dayViewDayFont;
+    dayView.dotView.backgroundColor = self.dayViewDotColor;
+}
+
+#pragma mark - MGDayViewDelegate method
+- (void) dayViewSelected:(MGDayView *)dayView
+{
+    //reset values
+    [self resetValuesForDayView:_selectedDayView];
+    
+    //set new values
+    _selectedDayView = dayView;
+    _selectedDayView.backgroundColor = self.selectedDayViewBackgroundColor;
+    _selectedDayView.dayLabel.textColor = self.selectedDayViewTextColor;
+    _selectedDayView.dateLabel.textColor = self.selectedDayViewTextColor;
+    _selectedDayView.layer.borderColor = self.selectedDayViewBorderColor.CGColor;
 }
 
 #pragma mark - UIGesture methods
@@ -197,6 +217,12 @@ int iPadModefier() {
     self.currentDate = [self.currentDate nextMonth];
 }
 
+#pragma mark - Date settings
+- (void) setCurrentDate:(NSDate *)currentDate {
+    _currentDate = currentDate;
+    [self reloadData];
+}
+
 #pragma mark - Setting DayView Values
 - (void) setDayViewKey:(NSString*)key value:(id)value
 {
@@ -207,7 +233,8 @@ int iPadModefier() {
         else
             [dayView setValue:value forKey:key];
     }
-    
+    [self resetValuesForDayView:self.selectedDayView];
+    [self resetValuesForDayView:currentDayView];
 }
 
 - (void) setDayViewBackgroundColor:(UIColor *)dayViewBackgroundColor {
@@ -244,25 +271,6 @@ int iPadModefier() {
 - (void) setDayViewDotColor:(UIColor *)dayViewDotColor {
     [self setDayViewKey:@"dotView.backgroundColor" value:dayViewDotColor];
     _dayViewDotColor = dayViewDotColor;
-}
-
-#pragma mark - MGDayViewDelegate method
-- (void) dayViewSelected:(MGDayView *)dayView
-{
-    //reset values
-    [_selectedDayView setBackgroundColor:self.dayViewBackgroundColor];
-    _selectedDayView.dayLabel.textColor = self.dayViewTextColor;
-    _selectedDayView.dateLabel.textColor = self.dayViewTextColor;
-    _selectedDayView.layer.borderColor = self.dayViewBorderColor.CGColor;
-    _selectedDayView.layer.borderWidth = self.dayViewBorderWidth;
-
-    //set new values
-    _selectedDayView = dayView;
-    _selectedDayView.backgroundColor = self.selectedDayViewBackgroundColor;
-    _selectedDayView.dayLabel.textColor = self.selectedDayViewTextColor;
-    _selectedDayView.dateLabel.textColor = self.selectedDayViewTextColor;
-    _selectedDayView.layer.borderColor = self.selectedDayViewBorderColor.CGColor;
-    _selectedDayView.layer.borderWidth = self.selectedDayViewBorderWidth;
 }
 
 @end

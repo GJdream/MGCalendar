@@ -33,16 +33,21 @@
 @property (nonatomic) UIColor *dayViewTextColor;
 @property (nonatomic) UIColor *dayViewDotColor;
 
+//-will need to call reloadData after setting theses values-//
 @property (nonatomic) UIColor *currentDayViewBackgroundColor;
+@property (nonatomic) UIColor *currentDayViewBorderColor;
+@property (nonatomic) UIColor *currentDayViewTextColor;
+//---------------------------------------------------------//
 
 @property (nonatomic, readonly) MGDayView *selectedDayView;
+//-will need to call reloadData after setting theses values-//
 @property (nonatomic) UIColor *selectedDayViewBackgroundColor;
 @property (nonatomic) UIColor *selectedDayViewTextColor;
 @property (nonatomic) UIColor *selectedDayViewBorderColor;
-@property (nonatomic) CGFloat selectedDayViewBorderWidth;
+//---------------------------------------------------------//
 
 //optional
-//could just use init (Default padding = 1)
+//could just use init (Default padding = 5)
 - (id) initWithPadding:(NSUInteger)padding;
 
 - (void) reloadData;
