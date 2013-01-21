@@ -99,7 +99,7 @@ int iPadModefier() {
         self.selectedDayViewBorderColor = [UIColor whiteColor];
         
         self.currentDayViewBackgroundColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.5 alpha:.5];
-        self.currentDayViewBorderColor = [UIColor blueColor];;
+        self.currentDayViewBorderColor = [UIColor blueColor];
         self.currentDayViewTextColor = self.selectedDayViewBorderColor;
 
         UISwipeGestureRecognizer *swipeGesture = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeRightGestureDetected:)];
@@ -200,6 +200,9 @@ int iPadModefier() {
     _selectedDayView.dayLabel.textColor = self.selectedDayViewTextColor;
     _selectedDayView.dateLabel.textColor = self.selectedDayViewTextColor;
     _selectedDayView.layer.borderColor = self.selectedDayViewBorderColor.CGColor;
+    
+    if ([self.delegate respondsToSelector:@selector(calendarSelectedDate:)])
+        [self.delegate calendarSelectedDate:_selectedDayView.date];
 }
 
 #pragma mark - UIGesture methods

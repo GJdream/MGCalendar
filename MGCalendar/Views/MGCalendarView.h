@@ -13,6 +13,7 @@
 @protocol MGCalendarViewDelegate <NSObject>
 @optional
 - (NSArray*) calendarMarkedDates;
+- (void) calendarSelectedDate:(NSDate*)date;
 @end
 
 @interface MGCalendarView : UIView <MGDayViewDelegate>

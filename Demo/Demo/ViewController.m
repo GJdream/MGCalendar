@@ -8,7 +8,9 @@
 
 #import "ViewController.h"
 
-@interface ViewController ()
+@interface ViewController () {
+    IBOutlet UILabel *selectedDateLabel;
+}
 
 @end
 
@@ -47,8 +49,6 @@
 
     calView.monthLabel.font = [UIFont fontWithName:fontName size:40.0f];
     [calView reloadData];
-    
-//    calView.backgroundColor = [UIColor grayColor];
 }
 
 //jsut a helper method for creating fake dates to be marked!
@@ -63,6 +63,12 @@
     NSDate *dayBefore = [self currentDateWithDaysOffset:-2];
     NSDate *daysAfter = [self currentDateWithDaysOffset:3];
     return @[dayBefore, daysAfter];
+}
+
+- (void) calendarSelectedDate:(NSDate*)date {
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"EEE, LLLL dd"];
+    selectedDateLabel.text = [formatter stringFromDate:date];
 }
 
 @end
