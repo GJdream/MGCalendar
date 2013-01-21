@@ -34,15 +34,12 @@
 - (UILabel*) monthLabel
 {
     if (!_monthLabel) {
-        CGRect frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height/6.0f - self.padding);
+        CGRect frame = CGRectMake(0, 0, self.frame.size.width, [self sizeOfDayView].height);
         _monthLabel = [[UILabel alloc] initWithFrame:frame];
         _monthLabel.backgroundColor = [UIColor clearColor];
         _monthLabel.textAlignment = UITextAlignmentCenter;
-        _monthLabel.font = [UIFont systemFontOfSize:24.0f];
+        _monthLabel.font = [UIFont systemFontOfSize:30.0f];
         _monthLabel.text = [self.currentDate monthName];
-        [_monthLabel sizeToFit];
-        frame.size.width = self.frame.size.width;
-        _monthLabel.frame = frame;
     }
     return _monthLabel;
 }
@@ -76,6 +73,15 @@
         self.selectedDayViewBorderColor = [UIColor whiteColor];
         self.selectedDayViewBorderWidth = .5f;
         
+        UISwipeGestureRecognizer *swipeGesture = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeRightGestureDetected:)];
+        swipeGesture.direction = UISwipeGestureRecognizerDirectionRight;
+        [self addGestureRecognizer:swipeGesture];
+        
+        swipeGesture = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeLeftGestureDetected:)];
+        swipeGesture.direction = UISwipeGestureRecognizerDirectionLeft;
+        [self addGestureRecognizer:swipeGesture];
+
+        
         [self resetCalendar];
     }
     return self;
@@ -103,7 +109,7 @@
 
 - (void) resetCalendar
 {
-    NSArray *dates = [[NSDate date] datesInCurrentMonth];    
+    NSArray *dates = [self.currentDate datesInCurrentMonth];
     int row = 0;
     int col = 0;
     for (NSDate *date in dates) {
@@ -132,13 +138,21 @@
         }
         
     }
-    
-    
+    _monthLabel.text = [self.currentDate monthName];
 }
 
 - (void) setCurrentDate:(NSDate *)currentDate {
     _currentDate = currentDate;
     [self reloadData];
+}
+
+#pragma mark - UIGesture methods
+- (void) swipeRightGestureDetected:(UISwipeGestureRecognizer*)gesture {
+    self.currentDate = [self.currentDate previousMonth];
+}
+
+- (void) swipeLeftGestureDetected:(UISwipeGestureRecognizer*)gesture {
+    self.currentDate = [self.currentDate nextMonth];
 }
 
 #pragma mark - Setting DayView Values

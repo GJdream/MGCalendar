@@ -50,4 +50,18 @@
     return datesThisMonth;
 }
 
+- (NSDate*) dateWithMonthOffset:(NSInteger)monthOffset {
+    NSDateComponents *dateComp = [[NSDateComponents alloc] init];
+    [dateComp setMonth:monthOffset];
+    NSCalendar *cal = [NSCalendar currentCalendar];
+    return [cal dateByAddingComponents:dateComp toDate:self options:0];;
+}
+
+- (NSDate*) nextMonth {
+    return [self dateWithMonthOffset:1];
+}
+- (NSDate*) previousMonth {
+    return [self dateWithMonthOffset:-1];
+}
+
 @end

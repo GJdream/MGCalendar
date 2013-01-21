@@ -18,4 +18,7 @@
 
 - (NSArray*) datesInCurrentMonth;
 
+- (NSDate*) nextMonth;
+- (NSDate*) previousMonth;
+
 @end
