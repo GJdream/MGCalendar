@@ -44,6 +44,13 @@
     return _monthLabel;
 }
 
+- (CATransition*) transitionAnimation {
+    CATransition *transition = [CATransition animation];
+    transition.type = kCATransitionPush;
+    transition.duration = .2f;
+    return transition;
+}
+
 - (id) init {
     return [self initWithPadding:1];
 }
@@ -148,10 +155,16 @@
 
 #pragma mark - UIGesture methods
 - (void) swipeRightGestureDetected:(UISwipeGestureRecognizer*)gesture {
+    CATransition *transition = [self transitionAnimation];
+    transition.subtype = kCATransitionFromLeft;
+    [self.layer addAnimation:transition forKey:@"Transition"];
     self.currentDate = [self.currentDate previousMonth];
 }
 
 - (void) swipeLeftGestureDetected:(UISwipeGestureRecognizer*)gesture {
+    CATransition *transition = [self transitionAnimation];
+    transition.subtype = kCATransitionFromRight;
+    [self.layer addAnimation:transition forKey:@"Transition"];
     self.currentDate = [self.currentDate nextMonth];
 }
 

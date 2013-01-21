@@ -23,6 +23,7 @@
 		4D9B019716AC4DE400FCA6EB /* MGDotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D9B019516AC4DE400FCA6EB /* MGDotView.m */; };
 		4D9B019F16AC528C00FCA6EB /* NSDate+Calendar.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D9B019E16AC528C00FCA6EB /* NSDate+Calendar.m */; };
 		4D9B01A516AC59D200FCA6EB /* MGCalendarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D9B01A416AC59D200FCA6EB /* MGCalendarView.m */; };
+		4DBC887316ACC36400E77F13 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DBC887216ACC36400E77F13 /* QuartzCore.framework */; };
 		4DF35E5516AC83DB000847EF /* ViewController~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4DF35E5416AC83DB000847EF /* ViewController~ipad.xib */; };
 		4DFF4FD016AC953200FDF423 /* texture-green.png in Resources */ = {isa = PBXBuildFile; fileRef = 4DFF4FCE16AC953200FDF423 /* texture-green.png */; };
 		4DFF4FD116AC953200FDF423 /* texture-purple.png in Resources */ = {isa = PBXBuildFile; fileRef = 4DFF4FCF16AC953200FDF423 /* texture-purple.png */; };
@@ -54,6 +55,7 @@
 		4D9B019E16AC528C00FCA6EB /* NSDate+Calendar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Calendar.m"; sourceTree = "<group>"; };
 		4D9B01A316AC59D200FCA6EB /* MGCalendarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGCalendarView.h; sourceTree = "<group>"; };
 		4D9B01A416AC59D200FCA6EB /* MGCalendarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGCalendarView.m; sourceTree = "<group>"; };
+		4DBC887216ACC36400E77F13 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		4DF35E5416AC83DB000847EF /* ViewController~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "ViewController~ipad.xib"; sourceTree = "<group>"; };
 		4DFF4FCE16AC953200FDF423 /* texture-green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "texture-green.png"; sourceTree = "<group>"; };
 		4DFF4FCF16AC953200FDF423 /* texture-purple.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "texture-purple.png"; sourceTree = "<group>"; };
@@ -64,6 +66,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4DBC887316ACC36400E77F13 /* QuartzCore.framework in Frameworks */,
 				4D9B016316AC4BDE00FCA6EB /* UIKit.framework in Frameworks */,
 				4D9B016516AC4BDE00FCA6EB /* Foundation.framework in Frameworks */,
 				4D9B016716AC4BDE00FCA6EB /* CoreGraphics.framework in Frameworks */,
@@ -94,6 +97,7 @@
 		4D9B016116AC4BDE00FCA6EB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4DBC887216ACC36400E77F13 /* QuartzCore.framework */,
 				4D9B016216AC4BDE00FCA6EB /* UIKit.framework */,
 				4D9B016416AC4BDE00FCA6EB /* Foundation.framework */,
 				4D9B016616AC4BDE00FCA6EB /* CoreGraphics.framework */,
