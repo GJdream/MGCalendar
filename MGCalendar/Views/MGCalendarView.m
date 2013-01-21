@@ -46,8 +46,9 @@
 
 - (CATransition*) transitionAnimation {
     CATransition *transition = [CATransition animation];
+    transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+    transition.duration = .25f;
     transition.type = kCATransitionPush;
-    transition.duration = .2f;
     return transition;
 }
 
