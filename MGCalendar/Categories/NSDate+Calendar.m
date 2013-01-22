@@ -114,8 +114,9 @@
 
 - (BOOL) isSameDayAs:(NSDate*)date {
     NSCalendar *cal = [NSCalendar currentCalendar];
-    NSDateComponents *selfComp = [cal calendarComponentsFromDate:self];
-    NSDateComponents *dateComp = [cal calendarComponentsFromDate:date];
+    NSUInteger components = NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit | NSEraCalendarUnit;
+    NSDateComponents *selfComp = [cal components:components fromDate:self];
+    NSDateComponents *dateComp = [cal components:components fromDate:date];
     return [selfComp day]   == [dateComp day] &&
             [selfComp month] == [dateComp month] &&
             [selfComp year]  == [dateComp year];    
