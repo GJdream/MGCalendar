@@ -137,7 +137,7 @@ int iPadModefier() {
 
 - (void) resetCalendar
 {
-    NSArray *dates = [self.currentDate datesInCurrentMonth];
+    NSArray *dates = [self.currentDate datesInCalendarMonth];
     int row = 0;
     int col = 0;
     for (NSDate *date in dates) {
@@ -220,9 +220,15 @@ int iPadModefier() {
     self.currentDate = [self.currentDate nextMonth];
 }
 
-#pragma mark - Date settings
+#pragma mark -
+#pragma mark - Setters
 - (void) setCurrentDate:(NSDate *)currentDate {
     _currentDate = currentDate;
+    [self reloadData];
+}
+
+- (void) setDelegate:(id<MGCalendarViewDelegate>)delegate {
+    _delegate = delegate;
     [self reloadData];
 }
 

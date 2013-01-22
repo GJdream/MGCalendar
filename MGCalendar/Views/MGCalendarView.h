@@ -34,6 +34,8 @@
 @property (nonatomic) UIColor *dayViewTextColor;
 @property (nonatomic) UIColor *dayViewDotColor;
 
+@property (nonatomic) NSString *defaultFontName;
+
 //-will need to call reloadData after setting theses values-//
 @property (nonatomic) UIColor *currentDayViewBackgroundColor;
 @property (nonatomic) UIColor *currentDayViewBorderColor;

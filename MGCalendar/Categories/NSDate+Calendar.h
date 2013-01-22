@@ -15,7 +15,11 @@
 - (NSString*) monthName;
 - (NSString*) yearShorthand;
 
-- (NSArray*) datesInCurrentMonth;
+- (NSDate*) firstDayOfMonth;
+- (NSDate*) lastDayOfMonth;
+
+- (NSMutableArray*) datesInCurrentMonth;
+- (NSMutableArray*) datesInCalendarMonth; 
 
 - (NSDate*) nextMonth;
 - (NSDate*) previousMonth;

@@ -60,9 +60,9 @@
 
 #pragma mark - MGCalendarViewDelegate methods
 - (NSArray*) calendarMarkedDates {
-    NSDate *dayBefore = [self currentDateWithDaysOffset:-2];
+    NSDate *daysBefore = [self currentDateWithDaysOffset:-2];
     NSDate *daysAfter = [self currentDateWithDaysOffset:3];
-    return @[dayBefore, daysAfter];
+    return @[daysBefore, daysAfter];
 }
 
 - (void) calendarSelectedDate:(NSDate*)date {
