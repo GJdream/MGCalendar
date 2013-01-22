@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		4D4AD81416AC722100F31B43 /* texture-gray.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D4AD81316AC722100F31B43 /* texture-gray.png */; };
 		4D87B2B316AE2DC500F27430 /* NSCalendar+Calendar.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D87B2B216AE2DC500F27430 /* NSCalendar+Calendar.m */; };
+		4D87B2C016AE33C200F27430 /* arrow-left.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D87B2BE16AE33C200F27430 /* arrow-left.png */; };
+		4D87B2C116AE33C200F27430 /* arrow-right.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D87B2BF16AE33C200F27430 /* arrow-right.png */; };
+		4D87B2C416AE34E100F27430 /* DemoControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D87B2C316AE34E100F27430 /* DemoControl.m */; };
 		4D9B016316AC4BDE00FCA6EB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D9B016216AC4BDE00FCA6EB /* UIKit.framework */; };
 		4D9B016516AC4BDE00FCA6EB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D9B016416AC4BDE00FCA6EB /* Foundation.framework */; };
 		4D9B016716AC4BDE00FCA6EB /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D9B016616AC4BDE00FCA6EB /* CoreGraphics.framework */; };
@@ -34,6 +37,10 @@
 		4D4AD81316AC722100F31B43 /* texture-gray.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "texture-gray.png"; sourceTree = "<group>"; };
 		4D87B2B116AE2DC500F27430 /* NSCalendar+Calendar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSCalendar+Calendar.h"; sourceTree = "<group>"; };
 		4D87B2B216AE2DC500F27430 /* NSCalendar+Calendar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSCalendar+Calendar.m"; sourceTree = "<group>"; };
+		4D87B2BE16AE33C200F27430 /* arrow-left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow-left.png"; sourceTree = "<group>"; };
+		4D87B2BF16AE33C200F27430 /* arrow-right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow-right.png"; sourceTree = "<group>"; };
+		4D87B2C216AE34E100F27430 /* DemoControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoControl.h; sourceTree = "<group>"; };
+		4D87B2C316AE34E100F27430 /* DemoControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemoControl.m; sourceTree = "<group>"; };
 		4D9B015E16AC4BDE00FCA6EB /* Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Demo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D9B016216AC4BDE00FCA6EB /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		4D9B016416AC4BDE00FCA6EB /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -111,6 +118,8 @@
 		4D9B016816AC4BDE00FCA6EB /* Demo */ = {
 			isa = PBXGroup;
 			children = (
+				4D87B2BE16AE33C200F27430 /* arrow-left.png */,
+				4D87B2BF16AE33C200F27430 /* arrow-right.png */,
 				4DFF4FCE16AC953200FDF423 /* texture-green.png */,
 				4DFF4FCF16AC953200FDF423 /* texture-purple.png */,
 				4D4AD81316AC722100F31B43 /* texture-gray.png */,
@@ -120,6 +129,8 @@
 				4D9B017B16AC4BDE00FCA6EB /* ViewController.m */,
 				4D9B017D16AC4BDE00FCA6EB /* ViewController.xib */,
 				4DF35E5416AC83DB000847EF /* ViewController~ipad.xib */,
+				4D87B2C216AE34E100F27430 /* DemoControl.h */,
+				4D87B2C316AE34E100F27430 /* DemoControl.m */,
 				4D9B016916AC4BDE00FCA6EB /* Supporting Files */,
 			);
 			path = Demo;
@@ -233,6 +244,8 @@
 				4DF35E5516AC83DB000847EF /* ViewController~ipad.xib in Resources */,
 				4DFF4FD016AC953200FDF423 /* texture-green.png in Resources */,
 				4DFF4FD116AC953200FDF423 /* texture-purple.png in Resources */,
+				4D87B2C016AE33C200F27430 /* arrow-left.png in Resources */,
+				4D87B2C116AE33C200F27430 /* arrow-right.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -251,6 +264,7 @@
 				4D9B019F16AC528C00FCA6EB /* NSDate+Calendar.m in Sources */,
 				4D9B01A516AC59D200FCA6EB /* MGCalendarView.m in Sources */,
 				4D87B2B316AE2DC500F27430 /* NSCalendar+Calendar.m in Sources */,
+				4D87B2C416AE34E100F27430 /* DemoControl.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

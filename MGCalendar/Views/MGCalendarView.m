@@ -66,7 +66,7 @@ int iPadModefier() {
 - (CATransition*) transitionAnimation {
     CATransition *transition = [CATransition animation];
     transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-    transition.duration = .25f;
+    transition.duration = .15f;
     transition.type = kCATransitionPush;
     return transition;
 }
@@ -81,6 +81,7 @@ int iPadModefier() {
         NSInteger height = [self sizeOfDayView].height * 7.0f;
         self.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, height);
         _padding = padding;
+        _isSwipeGestureEnabled = YES;
         
         [self addSubview:self.monthLabel];
         [self addSubview:self.yearLabel];
@@ -115,6 +116,30 @@ int iPadModefier() {
     return self;
 }
 
+
+- (void) nextMonthAnimated:(BOOL)animated {
+    if (animated) {
+        CATransition *transition = [self transitionAnimation];
+        transition.subtype = kCATransitionFromRight;
+        [self.layer addAnimation:transition forKey:@"TransitionFromRight"];
+    }
+    self.currentDate = [self.currentDate nextMonth];
+}
+
+- (void) previousMonthAnimated:(BOOL)animated {
+    if (animated) {
+        CATransition *transition = [self transitionAnimation];
+        transition.subtype = kCATransitionFromLeft;
+        [self.layer addAnimation:transition forKey:@"TransitionFromLeft"];
+    }
+    self.currentDate = [self.currentDate previousMonth];
+}
+
+- (void) resetToCurrentMonthAnimated:(BOOL)animated {
+    self.currentDate = [NSDate date];
+}
+
+#pragma mark - Recalculating View methods
 - (void) reloadData {
     [self removeVisibileDayViews];
     [self resetCalendar];
@@ -207,17 +232,15 @@ int iPadModefier() {
 
 #pragma mark - UIGesture methods
 - (void) swipeRightGestureDetected:(UISwipeGestureRecognizer*)gesture {
-    CATransition *transition = [self transitionAnimation];
-    transition.subtype = kCATransitionFromLeft;
-    [self.layer addAnimation:transition forKey:@"Transition"];
-    self.currentDate = [self.currentDate previousMonth];
+    if (!self.isSwipeGestureEnabled)
+        return;
+    [self previousMonthAnimated:YES];
 }
 
 - (void) swipeLeftGestureDetected:(UISwipeGestureRecognizer*)gesture {
-    CATransition *transition = [self transitionAnimation];
-    transition.subtype = kCATransitionFromRight;
-    [self.layer addAnimation:transition forKey:@"Transition"];
-    self.currentDate = [self.currentDate nextMonth];
+    if (!self.isSwipeGestureEnabled)
+        return;
+    [self nextMonthAnimated:YES];
 }
 
 #pragma mark -

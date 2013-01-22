@@ -10,6 +10,7 @@
 
 @interface ViewController () {
     IBOutlet UILabel *selectedDateLabel;
+    MGCalendarView *calView;
 }
 
 @end
@@ -21,8 +22,9 @@
     [super viewDidLoad];
 
     self.view.backgroundColor = [UIColor colorWithWhite:.8 alpha:1];
+    selectedDateLabel.text = @"";
     
-    MGCalendarView *calView = [[MGCalendarView alloc] initWithPadding:5];
+    calView = [[MGCalendarView alloc] initWithPadding:5];
     CGPoint center = self.view.center;
     center.y = calView.frame.size.height*.5;
     calView.center = center;
@@ -69,6 +71,15 @@
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"EEE, LLLL dd"];
     selectedDateLabel.text = [formatter stringFromDate:date];
+}
+
+#pragma mark - Button Actions
+- (IBAction)rightButtonPressed:(id)sender {
+    [calView nextMonthAnimated:YES];
+}
+
+- (IBAction)leftButtonPressed:(id)sender {
+    [calView previousMonthAnimated:YES];
 }
 
 @end

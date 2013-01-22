@@ -23,6 +23,10 @@
 //only set on init
 @property (nonatomic, readonly) NSUInteger padding;
 
+//default is YES
+//responsibile for swiping between months
+@property (nonatomic) BOOL isSwipeGestureEnabled;
+
 @property (nonatomic, readonly) UILabel *monthLabel;
 @property (nonatomic, readonly) UILabel *yearLabel;
 
@@ -54,5 +58,9 @@
 - (id) initWithPadding:(NSUInteger)padding;
 
 - (void) reloadData;
+
+- (void) nextMonthAnimated:(BOOL)animated;
+- (void) previousMonthAnimated:(BOOL)animated;
+- (void) resetToCurrentMonthAnimated:(BOOL)animated;
 
 @end
