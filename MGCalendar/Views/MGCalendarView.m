@@ -52,10 +52,10 @@ int iPadModefier() {
 
 - (id) initWithPadding:(NSUInteger)padding
 {
-    if (self = [super init]) {        
+    if (self = [super init]) {
+        _padding = padding * iPadModefier();
         NSInteger height = [self sizeOfDayView].height * 6.0f;
         self.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, height);
-        _padding = padding;
         _isSwipeGestureEnabled = YES;
         
         //set defaults
