@@ -15,11 +15,19 @@
 
     IBOutlet UILabel *selectedDateLabel;
     MGCalendarView *calView;
+    
+    NSArray *selectedDates;
 }
 
 @end
 
 @implementation ViewController
+
+//just a helper method for creating fake dates for the demo!
+- (NSDate*) currentDateWithDaysOffset:(NSInteger)offset {
+    NSDate *currentDate = [NSDate date];
+    return [currentDate dateByAddingTimeInterval:60*60*24*offset];
+}
 
 - (void)viewDidLoad
 {
@@ -33,6 +41,12 @@
     self.view.backgroundColor = [UIColor colorWithWhite:.8 alpha:1];
     selectedDateLabel.text = @"";
     
+    NSDate *daysBefore = [self currentDateWithDaysOffset:-2];
+    NSDate *daysAfter = [self currentDateWithDaysOffset:3];
+    selectedDates = @[daysBefore, daysAfter];
+    
+    
+    //-----------------CUSTOMIZING/ADDING Calendar-------------------//
     //create view with padding (optional)
     //Default is 5
     calView = [[MGCalendarView alloc] initWithPadding:5];
@@ -68,24 +82,25 @@
     [calView reloadData];
 }
 
-//jsut a helper method for creating fake dates to be marked!
-- (NSDate*) currentDateWithDaysOffset:(NSInteger)offset {
-    NSDate *currentDate = [NSDate date];
-    return [currentDate dateByAddingTimeInterval:60*60*24*offset];
-}
-
 
 #pragma mark - MGCalendarViewDelegate methods
 - (NSArray*) calendarMarkedDates {
-    NSDate *daysBefore = [self currentDateWithDaysOffset:-2];
-    NSDate *daysAfter = [self currentDateWithDaysOffset:3];
-    return @[daysBefore, daysAfter];
+    return selectedDates;
 }
 
 - (void) calendarSelectedDate:(NSDate*)date {
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"EEE, LLLL dd"];
-    selectedDateLabel.text = [formatter stringFromDate:date];
+    selectedDateLabel.text = [date stringFromDateWithFormat:@"EEE, LLLL dd"];
+    selectedDateLabel.textColor = [UIColor blackColor]; //reset color
+    
+    //highlight the selectedDates
+    for (NSDate *selectedDate in selectedDates) {
+        if ([selectedDate isSameDayAs:date]) {
+            selectedDateLabel.textColor = calView.dayViewDotColor;
+            break;
+        }
+    }
+    
+    
 }
 
 - (void) calendarBaseDateUpdated:(NSDate *)date {
