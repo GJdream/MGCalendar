@@ -14,11 +14,19 @@
 @optional
 - (NSArray*) calendarMarkedDates;
 - (void) calendarSelectedDate:(NSDate*)date;
+- (void) calendarBaseDateUpdated:(NSDate*)date;
 @end
 
 @interface MGCalendarView : UIView <MGDayViewDelegate>
 
 @property (nonatomic) id<MGCalendarViewDelegate> delegate;
+
+//The current date the calendar is based on
+//baseDate is offsetted from [NSDate date]
+//i.e. if its the 3rd of jan, next month is the 3rd of feb
+//Better to use ANIMATED month methods (bottom of .h) then to set directly
+//When set, reloadData is called automatically
+@property (nonatomic) NSDate *baseDate;
 
 //only set on init
 @property (nonatomic, readonly) NSUInteger padding;
@@ -26,9 +34,6 @@
 //default is YES
 //responsibile for swiping between months
 @property (nonatomic) BOOL isSwipeGestureEnabled;
-
-@property (nonatomic, readonly) UILabel *monthLabel;
-@property (nonatomic, readonly) UILabel *yearLabel;
 
 @property (nonatomic) UIColor *dayViewBorderColor;
 @property (nonatomic) CGFloat dayViewBorderWidth;

@@ -10,10 +10,11 @@
 
 @interface NSDate (Calendar)
 
+- (NSString*) stringFromDateWithFormat:(NSString*)format;
+
 - (NSString*) dayName;
 - (NSString*) dateNumber;
 - (NSString*) monthName;
-- (NSString*) yearShorthand;
 
 - (NSDate*) firstDayOfMonth;
 - (NSDate*) lastDayOfMonth;

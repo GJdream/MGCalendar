@@ -7,8 +7,12 @@
 //
 
 #import "ViewController.h"
+#import "NSDate+Calendar.h"
 
 @interface ViewController () {
+    IBOutlet UILabel *monthLabel;
+    IBOutlet UILabel *yearLabel;
+
     IBOutlet UILabel *selectedDateLabel;
     MGCalendarView *calView;
 }
@@ -20,23 +24,32 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+    
+    //just making labels match rest of fonts..
+    NSString *fontName = @"AvenirNext-Regular";
+    monthLabel.font = [UIFont fontWithName:fontName size:monthLabel.font.pointSize];
+    yearLabel.font = [UIFont fontWithName:fontName size:yearLabel.font.pointSize];
+    
     self.view.backgroundColor = [UIColor colorWithWhite:.8 alpha:1];
     selectedDateLabel.text = @"";
     
+    //create view with padding (optional)
+    //Default is 5
     calView = [[MGCalendarView alloc] initWithPadding:5];
-    CGPoint center = self.view.center;
-    center.y = calView.frame.size.height*.5;
-    calView.center = center;
+    CGRect frame = calView.frame;
+    frame.origin.y = yearLabel.frame.origin.y + yearLabel.frame.size.height + 15;
+    calView.frame = frame;
     calView.delegate = self;
     [self.view addSubview:calView];
     
+    //Customize your Calendar
+    //Every calendar "dayView" is just a custom UIView...
+    //Customization is endless!
     UIImage *texture = [UIImage imageNamed:@"texture-gray"];
     calView.dayViewBackgroundColor = [UIColor colorWithPatternImage:texture];
     calView.dayViewBorderColor = [UIColor colorWithWhite:85 alpha:1];
     calView.dayViewBorderWidth = .5f;
     
-    NSString *fontName = @"AvenirNext-Regular";
     UIFont *font = [UIFont fontWithName:fontName size:15];
     calView.dayViewDateFont = font;
     calView.dayViewDayFont = [UIFont fontWithName:fontName size:10];
@@ -49,7 +62,9 @@
     calView.currentDayViewBorderColor = [UIColor colorWithRed:.933333333 green:.509803922 blue:.933333333 alpha:1];
     calView.currentDayViewTextColor = [UIColor blackColor];
 
-    calView.monthLabel.font = [UIFont fontWithName:fontName size:40.0f];
+    //always a good idea to reloadData after customizing (even in subclass)
+    //No need to call reloadData after setting dayView attributes - auto reloads for you
+    //However, calView does not auto reload when setting currentDayViewBlahBlah, selectedDayViewBlahBlah, etc.
     [calView reloadData];
 }
 
@@ -71,6 +86,11 @@
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"EEE, LLLL dd"];
     selectedDateLabel.text = [formatter stringFromDate:date];
+}
+
+- (void) calendarBaseDateUpdated:(NSDate *)date {
+    monthLabel.text = [date monthName];
+    yearLabel.text = [date stringFromDateWithFormat:@"yyyy"];
 }
 
 #pragma mark - Button Actions

@@ -11,31 +11,24 @@
 
 @implementation NSDate (Calendar)
 
-- (NSString*) dayName
-{
+- (NSString*) stringFromDateWithFormat:(NSString*)format {
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"EEE"];
+    [formatter setDateFormat:format];
     return [formatter stringFromDate:self];
 }
 
-- (NSString*) dateNumber
-{
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"dd"];
-    return [formatter stringFromDate:self];
+- (NSString*) dayName {
+    return [self stringFromDateWithFormat:@"EEE"];
+}
+
+- (NSString*) dateNumber {
+    return [self stringFromDateWithFormat:@"dd"];
 }
 
 - (NSString*) monthName {
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"LLLL"];
-    return [formatter stringFromDate:self];
+    return [self stringFromDateWithFormat:@"LLLL"];
 }
 
-- (NSString*) yearShorthand {
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"yy"];
-    return [formatter stringFromDate:self];
-}
 
 - (NSDate*) firstDayOfMonth {
     NSCalendar *cal = [NSCalendar currentCalendar];

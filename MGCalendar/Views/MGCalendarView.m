@@ -15,22 +15,21 @@
 }
 
 @property (nonatomic) NSMutableArray *visibileDayViews;
-@property (nonatomic) NSDate *currentDate; //can be offseted from todayDate (i.e. previous month from today) 
 
 @end
 
 @implementation MGCalendarView
 
-@synthesize monthLabel = _monthLabel, visibileDayViews = _visibileDayViews, currentDate = _currentDate, yearLabel = _yearLabel;
+@synthesize visibileDayViews = _visibileDayViews, baseDate = _baseDate;
 
 int iPadModefier() {
     return UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad ? 2.1 : 1;
 }
 
-- (NSDate*) currentDate {
-    if (!_currentDate)
-        _currentDate = [NSDate date];
-    return _currentDate;
+- (NSDate*) baseDate {
+    if (!_baseDate)
+        _baseDate = [NSDate date];
+    return _baseDate;
 }
 
 - (NSMutableArray*) visibileDayViews {
@@ -39,34 +38,10 @@ int iPadModefier() {
     return _visibileDayViews;
 }
 
-- (UILabel*) monthLabel
-{
-    if (!_monthLabel) {
-        CGRect frame = CGRectMake(0, 0, self.frame.size.width, [self sizeOfDayView].height);
-        _monthLabel = [[UILabel alloc] initWithFrame:frame];
-        _monthLabel.backgroundColor = [UIColor clearColor];
-        _monthLabel.textAlignment = UITextAlignmentCenter;
-        _monthLabel.font = [UIFont systemFontOfSize:30.0f];
-    }
-    return _monthLabel;
-}
-
-- (UILabel*) yearLabel {
-    if (!_yearLabel) {
-        CGFloat height = [self sizeOfDayView].height*.5;
-        CGRect frame = CGRectMake(0, height, self.frame.size.width-3, height);
-        _yearLabel = [[UILabel alloc] initWithFrame:frame];
-        _yearLabel.backgroundColor = [UIColor clearColor];
-        _yearLabel.textAlignment = UITextAlignmentRight;
-        _yearLabel.font = [UIFont systemFontOfSize:15.0f];
-    }
-    return _yearLabel;
-}
-
 - (CATransition*) transitionAnimation {
     CATransition *transition = [CATransition animation];
     transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-    transition.duration = .15f;
+    transition.duration = .2f;
     transition.type = kCATransitionPush;
     return transition;
 }
@@ -78,13 +53,10 @@ int iPadModefier() {
 - (id) initWithPadding:(NSUInteger)padding
 {
     if (self = [super init]) {        
-        NSInteger height = [self sizeOfDayView].height * 7.0f;
+        NSInteger height = [self sizeOfDayView].height * 6.0f;
         self.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, height);
         _padding = padding;
         _isSwipeGestureEnabled = YES;
-        
-        [self addSubview:self.monthLabel];
-        [self addSubview:self.yearLabel];
         
         //set defaults
         self.dayViewBackgroundColor = [UIColor colorWithWhite:0.9 alpha:1];
@@ -123,7 +95,7 @@ int iPadModefier() {
         transition.subtype = kCATransitionFromRight;
         [self.layer addAnimation:transition forKey:@"TransitionFromRight"];
     }
-    self.currentDate = [self.currentDate nextMonth];
+    self.baseDate = [self.baseDate nextMonth];
 }
 
 - (void) previousMonthAnimated:(BOOL)animated {
@@ -132,11 +104,11 @@ int iPadModefier() {
         transition.subtype = kCATransitionFromLeft;
         [self.layer addAnimation:transition forKey:@"TransitionFromLeft"];
     }
-    self.currentDate = [self.currentDate previousMonth];
+    self.baseDate = [self.baseDate previousMonth];
 }
 
 - (void) resetToCurrentMonthAnimated:(BOOL)animated {
-    self.currentDate = [NSDate date];
+    self.baseDate = [NSDate date];
 }
 
 #pragma mark - Recalculating View methods
@@ -162,14 +134,14 @@ int iPadModefier() {
 
 - (void) resetCalendar
 {
-    NSArray *dates = [self.currentDate datesInCalendarMonth];
+    NSArray *dates = [self.baseDate datesInCalendarMonth];
     int row = 0;
     int col = 0;
     for (NSDate *date in dates) {
         CGRect frame;
         frame.size = [self sizeOfDayView];
         frame.origin.x = col*frame.size.width + self.padding*col + self.padding*.5;
-        frame.origin.y = row*frame.size.height + self.padding*row + self.monthLabel.frame.size.height;
+        frame.origin.y = row*frame.size.height + self.padding*row;
         MGDayView *dayView = [[MGDayView alloc] initWithFrame:frame date:date];
         dayView.delegate = self;
         [self addSubview:dayView];
@@ -195,8 +167,12 @@ int iPadModefier() {
         }
         
     }
-    self.monthLabel.text = [self.currentDate monthName];
-    self.yearLabel.text = [self.currentDate yearShorthand];
+    
+    if ([self.delegate respondsToSelector:@selector(calendarBaseDateUpdated:)])
+        [self.delegate calendarBaseDateUpdated:self.baseDate];
+    
+    //resets selected view
+    [self dayViewSelected:nil];
 }
 
 - (void) resetValuesForDayView:(MGDayView*)dayView
@@ -245,8 +221,8 @@ int iPadModefier() {
 
 #pragma mark -
 #pragma mark - Setters
-- (void) setCurrentDate:(NSDate *)currentDate {
-    _currentDate = currentDate;
+- (void) setBaseDate:(NSDate *)baseDate {
+    _baseDate = baseDate;
     [self reloadData];
 }
 
