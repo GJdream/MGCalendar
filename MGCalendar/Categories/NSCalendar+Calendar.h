@@ -10,6 +10,8 @@
 
 @interface NSCalendar (Calendar)
 
+- (NSDateComponents*) calendarComponents:(NSUInteger)unitFlags FromDate:(NSDate*)date;
+
 - (NSDateComponents*) calendarComponentsFromDate:(NSDate*)date;
 
 @end

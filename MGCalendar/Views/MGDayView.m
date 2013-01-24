@@ -54,7 +54,7 @@
     [self.dateLabel sizeToFit];
     [self.dayLabel sizeToFit];
     
-    //positions datelabel to top of screen
+    //positions datelabel to top of scspreen
     NSInteger offset = 3;
     CGRect frame = self.frame;
     frame.size.height = self.dateLabel.frame.size.height;

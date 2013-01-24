@@ -15,13 +15,17 @@ NSUInteger defaultComponents() {
             NSWeekCalendarUnit | NSWeekdayCalendarUnit | NSEraCalendarUnit);
 }
 
-- (NSDateComponents*) calendarComponentsFromDate:(NSDate*)date
+- (NSDateComponents*) calendarComponents:(NSUInteger)unitFlags FromDate:(NSDate*)date
 {
     NSDateComponents *components = [self components:defaultComponents() fromDate:date];
     [components setHour:0];
     [components setMinute:0];
     [components setSecond:0];
     return components;
+}
+
+- (NSDateComponents*) calendarComponentsFromDate:(NSDate*)date {
+    return [self calendarComponents:defaultComponents() FromDate:date];
 }
 
 @end

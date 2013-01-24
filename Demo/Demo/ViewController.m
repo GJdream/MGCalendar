@@ -34,7 +34,7 @@
     [super viewDidLoad];
     
     //just making labels match rest of fonts..
-    NSString *fontName = @"AvenirNext-Regular";
+    NSString *fontName = @"HelveticaNeue-Light";
     monthLabel.font = [UIFont fontWithName:fontName size:monthLabel.font.pointSize];
     yearLabel.font = [UIFont fontWithName:fontName size:yearLabel.font.pointSize];
     
@@ -49,9 +49,11 @@
     //-----------------CUSTOMIZING/ADDING Calendar-------------------//
     //create view with padding (optional)
     //Default is 5
-    calView = [[MGCalendarView alloc] initWithPadding:5];
+//    calView = [[MGCalendarView alloc] initWithPadding:5]; //this autocacluates frame (width will always be fixed)
+    calView = [[MGCalendarView alloc] initWithPadding:5 width:self.view.frame.size.width-20];
     CGRect frame = calView.frame;
     frame.origin.y = yearLabel.frame.origin.y + yearLabel.frame.size.height + 15;
+    frame.origin.x = self.view.frame.size.width*.5 - frame.size.width*.5;
     calView.frame = frame;
     calView.delegate = self;
     [self.view addSubview:calView];
@@ -75,7 +77,7 @@
     calView.currentDayViewBackgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"texture-purple"]];
     calView.currentDayViewBorderColor = [UIColor colorWithRed:.933333333 green:.509803922 blue:.933333333 alpha:1];
     calView.currentDayViewTextColor = [UIColor blackColor];
-
+    
     //always a good idea to reloadData after customizing (even in subclass)
     //No need to call reloadData after setting dayView attributes - auto reloads for you
     //However, calView does not auto reload when setting currentDayViewBlahBlah, selectedDayViewBlahBlah, etc.

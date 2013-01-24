@@ -9,6 +9,7 @@
 #import "MGCalendarView.h"
 #import "NSDate+Calendar.h"
 #import "MGDotView.h"
+#import "NSCalendar+Calendar.h"
 
 @interface MGCalendarView () {
     MGDayView *currentDayView;
@@ -50,12 +51,15 @@ int iPadModefier() {
     return [self initWithPadding:5];
 }
 
-- (id) initWithPadding:(NSUInteger)padding
-{
+- (id) initWithPadding:(NSUInteger)padding {
+    return [self initWithPadding:padding width:[UIScreen mainScreen].bounds.size.width];
+}
+
+- (id) initWithPadding:(NSUInteger)padding width:(CGFloat)width {
     if (self = [super init]) {
         _padding = padding * iPadModefier();
-        NSInteger height = [self sizeOfDayView].height * 6.0f;
-        self.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, height);
+        NSInteger height = ([self sizeOfDayView].height + self.padding) * 6.0f;
+        self.frame = CGRectMake(0, 0, width, height);
         _isSwipeGestureEnabled = YES;
         
         //set defaults
@@ -67,6 +71,10 @@ int iPadModefier() {
         self.dayViewDotColor = [UIColor colorWithRed:0.0 green:0.5 blue:0 alpha:.5];
         self.dayViewBorderWidth = .5f;
         
+        self.differentMonthDayViewBackgroundColor = [UIColor colorWithWhite:0.85 alpha:1];
+        self.differentMonthDayViewBorderColor = [UIColor colorWithWhite:0.95 alpha:1];
+        self.differentMonthDayViewTextColor = [UIColor lightGrayColor];
+        
         self.selectedDayViewBackgroundColor = [UIColor colorWithRed:0 green:.5 blue:0.0 alpha:.35];
         self.selectedDayViewTextColor = [UIColor whiteColor];
         self.selectedDayViewBorderColor = [UIColor whiteColor];
@@ -74,7 +82,7 @@ int iPadModefier() {
         self.currentDayViewBackgroundColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.5 alpha:.5];
         self.currentDayViewBorderColor = [UIColor blueColor];
         self.currentDayViewTextColor = self.selectedDayViewBorderColor;
-
+        
         UISwipeGestureRecognizer *swipeGesture = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeRightGestureDetected:)];
         swipeGesture.direction = UISwipeGestureRecognizerDirectionRight;
         [self addGestureRecognizer:swipeGesture];
@@ -111,6 +119,13 @@ int iPadModefier() {
     self.baseDate = [NSDate date];
 }
 
+//gets dayview associated with day of date
+- (MGDayView*) dayViewForDate:(NSDate*)date {
+    NSDateComponents* comps = [[NSCalendar currentCalendar] components:NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit fromDate:date];
+    NSInteger day = [comps day] + [date lastDatesInPreviousMonth].count; //add to prevous dates if any
+    return [self.visibileDayViews objectAtIndex:day-1];
+}
+
 #pragma mark - Recalculating View methods
 - (void) reloadData {
     [self removeVisibileDayViews];
@@ -141,7 +156,7 @@ int iPadModefier() {
         CGRect frame;
         frame.size = [self sizeOfDayView];
         frame.origin.x = col*frame.size.width + self.padding*col + self.padding*.5;
-        frame.origin.y = row*frame.size.height + self.padding*row;
+        frame.origin.y = row*frame.size.height + self.padding*row + self.padding*.5;
         MGDayView *dayView = [[MGDayView alloc] initWithFrame:frame date:date];
         dayView.delegate = self;
         [self addSubview:dayView];
@@ -187,6 +202,15 @@ int iPadModefier() {
     dayView.dateLabel.font = self.dayViewDateFont;
     dayView.dayLabel.font = self.dayViewDayFont;
     dayView.dotView.backgroundColor = self.dayViewDotColor;
+    
+    //not the same month (either last months last week dates or next months first week days)
+    if (dayView.date && ![self.baseDate isSameMonthAs:dayView.date]) {
+        dayView.backgroundColor = self.differentMonthDayViewBackgroundColor;
+        dayView.dateLabel.textColor = self.differentMonthDayViewTextColor;
+        dayView.dayLabel.textColor = self.differentMonthDayViewTextColor;
+        dayView.layer.borderColor = self.differentMonthDayViewBorderColor.CGColor;
+    }
+    
 }
 
 #pragma mark - MGDayViewDelegate method
@@ -201,9 +225,16 @@ int iPadModefier() {
     _selectedDayView.dayLabel.textColor = self.selectedDayViewTextColor;
     _selectedDayView.dateLabel.textColor = self.selectedDayViewTextColor;
     _selectedDayView.layer.borderColor = self.selectedDayViewBorderColor.CGColor;
+
+    //buggy
+//    if (self.selectedDayView.date && ![self.selectedDayView.date isSameMonthAs:self.baseDate]) {
+//        NSDate *date = self.selectedDayView.date;
+//        self.baseDate = self.selectedDayView.date;
+//        [self dayViewSelected:[self dayViewForDate:date]];
+//    }
     
     if ([self.delegate respondsToSelector:@selector(calendarSelectedDate:)])
-        [self.delegate calendarSelectedDate:_selectedDayView.date];
+        [self.delegate calendarSelectedDate:self.selectedDayView.date];
 }
 
 #pragma mark - UIGesture methods

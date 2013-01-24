@@ -19,12 +19,18 @@
 - (NSDate*) firstDayOfMonth;
 - (NSDate*) lastDayOfMonth;
 
+- (NSMutableArray*) lastDatesInPreviousMonth;
 - (NSMutableArray*) datesInCurrentMonth;
+- (NSMutableArray*) firstDatesInNextMonth;
+
+//Combines lastDatesInPreviousMonth + datesInCurrentMonth + firstDatesInNextMonth
+//This makes the calendar as you know it
 - (NSMutableArray*) datesInCalendarMonth; 
 
 - (NSDate*) nextMonth;
 - (NSDate*) previousMonth;
 
 - (BOOL) isSameDayAs:(NSDate*)date;
+- (BOOL) isSameMonthAs:(NSDate*)date;
 
 @end

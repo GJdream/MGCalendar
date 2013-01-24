@@ -44,6 +44,23 @@
     return [cal dateFromComponents:comps];
 }
 
+- (NSMutableArray*) lastDatesInPreviousMonth
+{    
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    NSDateComponents *components = [calendar calendarComponentsFromDate:[self firstDayOfMonth]];
+    
+    //first days of week not including current month days
+    NSMutableArray *lastWeekDays = [NSMutableArray array];
+    for (int i = 1; i <= 7; i++) {
+        [components setWeekday:i];
+        NSDate *dayInWeek = [calendar dateFromComponents:components];
+        if ([dayInWeek isSameDayAs:[self firstDayOfMonth]])
+            break;
+        [lastWeekDays addObject:dayInWeek];
+    }
+    return lastWeekDays;
+}
+
 - (NSMutableArray*) datesInCurrentMonth;
 {
     NSCalendar *calendar = [NSCalendar currentCalendar];
@@ -60,23 +77,10 @@
     return datesThisMonth;
 }
 
-- (NSArray*) datesInCalendarMonth
-{    
+- (NSMutableArray*) firstDatesInNextMonth
+{
     NSCalendar *calendar = [NSCalendar currentCalendar];
-    NSDateComponents *components = [calendar calendarComponentsFromDate:[self firstDayOfMonth]];
-    
-    //first days of week not including current month days
-    NSMutableArray *firstWeekDays = [NSMutableArray array];
-    for (int i = 1; i <= 7; i++) {
-        [components setWeekday:i];
-        NSDate *dayInWeek = [calendar dateFromComponents:components];
-        if ([dayInWeek isSameDayAs:[self firstDayOfMonth]])
-            break;
-        [firstWeekDays addObject:dayInWeek];
-    }
-
-    //last days of week not including current month days
-    components = [calendar calendarComponentsFromDate:[self lastDayOfMonth]];
+    NSDateComponents *components = [calendar calendarComponentsFromDate:[self lastDayOfMonth]];
     NSMutableArray *lastWeekDays = [NSMutableArray array];
     for (int i = [components weekday]+1; i <= 7; i++) {
         [components setWeekday:i];
@@ -85,10 +89,15 @@
             break;
         [lastWeekDays addObject:dayInWeek];
     }
+    return lastWeekDays;
+}
 
-    [firstWeekDays addObjectsFromArray:[self datesInCurrentMonth]];
-    [firstWeekDays addObjectsFromArray:lastWeekDays];
-    return firstWeekDays;
+- (NSArray*) datesInCalendarMonth
+{    
+    NSMutableArray *dates = [self lastDatesInPreviousMonth];
+    [dates addObjectsFromArray:[self datesInCurrentMonth]];
+    [dates addObjectsFromArray:[self firstDatesInNextMonth]];
+    return dates;
 }
 
 - (NSDate*) dateWithMonthOffset:(NSInteger)monthOffset {
@@ -113,6 +122,15 @@
     return [selfComp day]   == [dateComp day] &&
             [selfComp month] == [dateComp month] &&
             [selfComp year]  == [dateComp year];    
+}
+
+- (BOOL) isSameMonthAs:(NSDate *)date {
+    NSCalendar *cal = [NSCalendar currentCalendar];
+    NSUInteger components = NSMonthCalendarUnit | NSYearCalendarUnit | NSEraCalendarUnit;
+    NSDateComponents *selfComp = [cal components:components fromDate:self];
+    NSDateComponents *dateComp = [cal components:components fromDate:date];
+    return [selfComp month] == [dateComp month] &&
+            [selfComp year] == [dateComp year];
 }
 
 @end
