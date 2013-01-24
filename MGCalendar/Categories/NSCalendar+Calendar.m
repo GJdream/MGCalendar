@@ -16,7 +16,7 @@ NSUInteger defaultComponents() {
 }
 
 - (NSDateComponents*) calendarComponents:(NSUInteger)unitFlags FromDate:(NSDate*)date
-{
+{    
     NSDateComponents *components = [self components:defaultComponents() fromDate:date];
     [components setHour:0];
     [components setMinute:0];

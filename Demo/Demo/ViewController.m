@@ -82,10 +82,7 @@
     calView.differentMonthDayViewBorderColor = [UIColor colorWithWhite:.9 alpha:1];
     calView.differentMonthDayViewTextColor = [UIColor lightGrayColor];
 
-    
-    //always a good idea to reloadData after customizing (even in subclass)
-    //No need to call reloadData after setting dayView attributes - auto reloads for you
-    //However, calView does not auto reload when setting currentDayViewBlahBlah, selectedDayViewBlahBlah, etc.
+    //not needed - reloads data when setting values
 //    [calView reloadData];
 }
 
@@ -96,6 +93,10 @@
 }
 
 - (void) calendarSelectedDate:(NSDate*)date {
+    
+    if (!date)
+        return;
+    
     selectedDateLabel.text = [date stringFromDateWithFormat:@"EEE, LLLL dd"];
     selectedDateLabel.textColor = [UIColor blackColor]; //reset color
     
