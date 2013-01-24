@@ -78,10 +78,15 @@
     calView.currentDayViewBorderColor = [UIColor colorWithRed:.933333333 green:.509803922 blue:.933333333 alpha:1];
     calView.currentDayViewTextColor = [UIColor blackColor];
     
+    calView.differentMonthDayViewBackgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"texture-purple"]];
+    calView.differentMonthDayViewBorderColor = [UIColor colorWithRed:.933333333 green:.509803922 blue:.933333333 alpha:1];
+    calView.differentMonthDayViewTextColor = [UIColor blackColor];
+
+    
     //always a good idea to reloadData after customizing (even in subclass)
     //No need to call reloadData after setting dayView attributes - auto reloads for you
     //However, calView does not auto reload when setting currentDayViewBlahBlah, selectedDayViewBlahBlah, etc.
-    [calView reloadData];
+//    [calView reloadData];
 }
 
 

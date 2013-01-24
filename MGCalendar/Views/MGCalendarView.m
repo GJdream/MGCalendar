@@ -121,9 +121,14 @@ int iPadModefier() {
 
 //gets dayview associated with day of date
 - (MGDayView*) dayViewForDate:(NSDate*)date {
-    NSDateComponents* comps = [[NSCalendar currentCalendar] components:NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit fromDate:date];
-    NSInteger day = [comps day] + [date lastDatesInPreviousMonth].count; //add to prevous dates if any
-    return [self.visibileDayViews objectAtIndex:day-1];
+    if ([date isSameMonthAs:self.baseDate]) {
+        NSDateComponents* comps = [[NSCalendar currentCalendar] components:NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit fromDate:date];
+        NSInteger day = [comps day] + [date lastDatesInPreviousMonth].count-1; //add to prevous dates if any
+        if (day < self.visibileDayViews.count)
+            return [self.visibileDayViews objectAtIndex:day];
+    }
+    
+    return nil;
 }
 
 #pragma mark - Recalculating View methods
@@ -311,6 +316,69 @@ int iPadModefier() {
 - (void) setDayViewDotColor:(UIColor *)dayViewDotColor {
     [self setDayViewKey:@"dotView.backgroundColor" value:dayViewDotColor];
     _dayViewDotColor = dayViewDotColor;
+}
+
+- (void) setSelectedDayViewBackgroundColor:(UIColor *)selectedDayViewBackgroundColor {
+    self.selectedDayView.backgroundColor = selectedDayViewBackgroundColor;
+    _selectedDayViewBackgroundColor = selectedDayViewBackgroundColor;
+}
+
+- (void) setSelectedDayViewBorderColor:(UIColor *)selectedDayViewBorderColor {
+    self.selectedDayView.layer.borderColor = selectedDayViewBorderColor.CGColor;
+    _selectedDayViewBorderColor = selectedDayViewBorderColor;
+}
+
+- (void) setSelectedDayViewTextColor:(UIColor *)selectedDayViewTextColor {
+    self.selectedDayView.dayLabel.textColor = selectedDayViewTextColor;
+    self.selectedDayView.dateLabel.textColor = selectedDayViewTextColor;
+    _selectedDayViewTextColor = selectedDayViewTextColor;
+}
+
+- (void) setCurrentDayViewBackgroundColor:(UIColor *)currentDayViewBackgroundColor {
+    currentDayView.backgroundColor = currentDayViewBackgroundColor;
+    _currentDayViewBackgroundColor = currentDayViewBackgroundColor;
+}
+
+- (void) setCurrentDayViewBorderColor:(UIColor *)currentDayViewBorderColor {
+    currentDayView.layer.borderColor = currentDayViewBorderColor.CGColor;
+    _currentDayViewBorderColor = currentDayViewBorderColor;
+}
+
+- (void) setCurrentDayViewTextColor:(UIColor *)currentDayViewTextColor {
+    currentDayView.dayLabel.textColor = currentDayViewTextColor;
+    currentDayView.dateLabel.textColor = currentDayViewTextColor;
+    _currentDayViewTextColor = currentDayViewTextColor;
+}
+
+
+- (void) setDifferentMonthDayViewKey:(NSString*)key value:(id)value
+{
+    BOOL isKeyPath = ([key rangeOfString:@"."].location != NSNotFound);
+    NSMutableArray *dates = [self.baseDate lastDatesInPreviousMonth];
+    [dates addObjectsFromArray:[self.baseDate firstDatesInNextMonth]];
+    for (NSDate *date in dates) {
+        MGDayView *dayView = [self dayViewForDate:date];
+        if (isKeyPath)
+            [dayView setValue:value forKeyPath:key];
+        else
+            [dayView setValue:value forKey:key];
+    }
+}
+
+- (void) setDifferentMonthDayViewBackgroundColor:(UIColor *)differentMonthDayViewBackgroundColor {
+    [self setDifferentMonthDayViewKey:@"backgroundColor" value:differentMonthDayViewBackgroundColor];
+    _differentMonthDayViewBackgroundColor = differentMonthDayViewBackgroundColor;
+}
+
+- (void) setDifferentMonthDayViewBorderColor:(UIColor *)differentMonthDayViewBorderColor {
+    [self setDifferentMonthDayViewKey:@"layer.borderColor" value:(id)differentMonthDayViewBorderColor.CGColor];
+    _differentMonthDayViewBorderColor = differentMonthDayViewBorderColor;
+}
+
+- (void) setDifferentMonthDayViewTextColor:(UIColor *)differentMonthDayViewTextColor {
+    [self setDifferentMonthDayViewKey:@"dateLabel.textColor" value:differentMonthDayViewTextColor];
+    [self setDifferentMonthDayViewKey:@"dayLabel.textColor" value:differentMonthDayViewTextColor];
+    _differentMonthDayViewTextColor = differentMonthDayViewTextColor;
 }
 
 @end

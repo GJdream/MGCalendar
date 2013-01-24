@@ -43,9 +43,6 @@
 @property (nonatomic) UIColor *dayViewTextColor;
 @property (nonatomic) UIColor *dayViewDotColor;
 
-@property (nonatomic) NSString *defaultFontName;
-
-//-will need to call reloadData after setting theses values-//
 @property (nonatomic) UIColor *differentMonthDayViewBackgroundColor;
 @property (nonatomic) UIColor *differentMonthDayViewBorderColor;
 @property (nonatomic) UIColor *differentMonthDayViewTextColor;
@@ -58,7 +55,6 @@
 @property (nonatomic) UIColor *selectedDayViewBackgroundColor;
 @property (nonatomic) UIColor *selectedDayViewTextColor;
 @property (nonatomic) UIColor *selectedDayViewBorderColor;
-//---------------------------------------------------------//
 
 //optional
 //could just use init (Default padding = 5)
