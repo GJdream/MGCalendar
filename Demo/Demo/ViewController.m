@@ -78,9 +78,9 @@
     calView.currentDayViewBorderColor = [UIColor colorWithRed:.933333333 green:.509803922 blue:.933333333 alpha:1];
     calView.currentDayViewTextColor = [UIColor blackColor];
     
-    calView.differentMonthDayViewBackgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"texture-purple"]];
-    calView.differentMonthDayViewBorderColor = [UIColor colorWithRed:.933333333 green:.509803922 blue:.933333333 alpha:1];
-    calView.differentMonthDayViewTextColor = [UIColor blackColor];
+    calView.differentMonthDayViewBackgroundColor = [UIColor colorWithWhite:.85 alpha:1];
+    calView.differentMonthDayViewBorderColor = [UIColor colorWithWhite:.9 alpha:1];
+    calView.differentMonthDayViewTextColor = [UIColor lightGrayColor];
 
     
     //always a good idea to reloadData after customizing (even in subclass)

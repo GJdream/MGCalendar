@@ -120,13 +120,24 @@ int iPadModefier() {
 }
 
 //gets dayview associated with day of date
-- (MGDayView*) dayViewForDate:(NSDate*)date {
+- (MGDayView*) dayViewForDate:(NSDate*)date
+{
+    NSUInteger day = self.visibileDayViews.count;
     if ([date isSameMonthAs:self.baseDate]) {
         NSDateComponents* comps = [[NSCalendar currentCalendar] components:NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit fromDate:date];
-        NSInteger day = [comps day] + [date lastDatesInPreviousMonth].count-1; //add to prevous dates if any
-        if (day < self.visibileDayViews.count)
-            return [self.visibileDayViews objectAtIndex:day];
+        day = [comps day] + [date lastDatesInPreviousMonth].count-1; //add to prevous dates if any
+    } else if ([date isSameMonthAs:[self.baseDate previousMonth]]) {
+        NSDateComponents* comps = [[NSCalendar currentCalendar] components:NSWeekdayCalendarUnit fromDate:date];
+        day = [comps weekday]-1;
+    } else if ([date isSameMonthAs:[self.baseDate nextMonth]]) {
+        NSDateComponents* comps = [[NSCalendar currentCalendar] components:NSWeekdayCalendarUnit fromDate:date];
+        //subtracting 8 - 7 is for the days in a week, 1 is for the array offset (arrays start at 0, not 1)
+        //7 + 1 = 8 :)...
+        day = [comps weekday] + [self.baseDate datesInCalendarMonth].count - 8;
     }
+    
+    if (day < self.visibileDayViews.count)
+        return [self.visibileDayViews objectAtIndex:day];
     
     return nil;
 }
