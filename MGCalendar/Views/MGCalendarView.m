@@ -226,6 +226,7 @@ int iPadModefier() {
     _selectedDayView.dateLabel.textColor = self.selectedDayViewTextColor;
     _selectedDayView.layer.borderColor = self.selectedDayViewBorderColor.CGColor;
 
+    //TODO - 
     //buggy
 //    if (self.selectedDayView.date && ![self.selectedDayView.date isSameMonthAs:self.baseDate]) {
 //        NSDate *date = self.selectedDayView.date;
