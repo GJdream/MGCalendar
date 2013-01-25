@@ -33,6 +33,7 @@ BY DEFAUL `isSwipeGestureEnabled` is YES
 @property (nonatomic) BOOL isSwipeGestureEnabled;
 ```
 
+
 ### The Customization Properties
 DayViews = The Actual Dates on the calendar, surrounded by a box (UIView).
 
@@ -48,6 +49,7 @@ These do not effect all DayViews, only those that are not a  selected view, curr
 @property (nonatomic) UIColor *dayViewDotColor;
 ```
 
+
 #### Selected DayView properties
 Set these to edit the selected DayView. (the view that is selected by touch…)
 ```objc
@@ -55,6 +57,7 @@ Set these to edit the selected DayView. (the view that is selected by touch…)
 @property (nonatomic) UIColor *selectedDayViewTextColor;
 @property (nonatomic) UIColor *selectedDayViewBorderColor;
 ```
+
 
 #### Current DayView properties
 Set these to edit the current DayView. (the view that is shows what the current date is)
@@ -64,6 +67,7 @@ Set these to edit the current DayView. (the view that is shows what the current 
 @property (nonatomic) UIColor *currentDayViewTextColor;
 ```
 
+
 #### Current DayView properties
 Set these to edit the DayViews that are not in the month (of the baseDate) but still visible in the calendar.
 ```objc
@@ -71,6 +75,7 @@ Set these to edit the DayViews that are not in the month (of the baseDate) but s
 @property (nonatomic) UIColor *differentMonthDayViewBorderColor;
 @property (nonatomic) UIColor *differentMonthDayViewTextColor;
 ```
+
 
 # Demo
 Checkout the demo for an example of how to use MGCalendar!
