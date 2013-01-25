@@ -8,82 +8,91 @@
 
 #import "ViewController.h"
 #import "NSDate+Calendar.h"
+#import "SectionView.h"
 
 @interface ViewController () {
     IBOutlet UILabel *monthLabel;
     IBOutlet UILabel *yearLabel;
+    IBOutlet SectionView *headerView;
 
     IBOutlet UILabel *selectedDateLabel;
-    MGCalendarView *calView;
     
     NSArray *selectedDates;
 }
+
+@property (nonatomic, readonly) MGCalendarView *calView;
 
 @end
 
 @implementation ViewController
 
-//just a helper method for creating fake dates for the demo!
-- (NSDate*) currentDateWithDaysOffset:(NSInteger)offset {
-    NSDate *currentDate = [NSDate date];
-    return [currentDate dateByAddingTimeInterval:60*60*24*offset];
+@synthesize calView = _calView;
+
+//would be ideal to subclass MGCalendarView
+//but for the sake of the demo...
+- (MGCalendarView*) calView
+{
+    if (!_calView) {
+        _calView = [[MGCalendarView alloc] initWithPadding:5 width:self.view.frame.size.width-20];
+        _calView.delegate = self;
+        
+        UIImage *texture = [UIImage imageNamed:@"texture-gray"];
+        _calView.dayViewBackgroundColor = [UIColor colorWithPatternImage:texture];
+        _calView.dayViewBorderColor = [UIColor colorWithWhite:85 alpha:1];
+        _calView.dayViewBorderWidth = .5f;
+        
+        NSString *fontName = @"HelveticaNeue-Light";
+        UIFont *font = [UIFont fontWithName:fontName size:15];
+        _calView.dayViewDateFont = font;
+        _calView.dayViewDayFont = [UIFont fontWithName:fontName size:10];
+        
+        _calView.selectedDayViewBackgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"texture-green"]];
+        _calView.selectedDayViewTextColor = [UIColor blackColor];
+        _calView.selectedDayViewBorderColor = [UIColor greenColor];
+        
+        _calView.currentDayViewBackgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"texture-purple"]];
+        _calView.currentDayViewBorderColor = [UIColor colorWithRed:.933333333 green:.509803922 blue:.933333333 alpha:1];
+        _calView.currentDayViewTextColor = [UIColor blackColor];
+        
+        _calView.differentMonthDayViewBackgroundColor = [UIColor colorWithWhite:.85 alpha:1];
+        _calView.differentMonthDayViewBorderColor = [UIColor colorWithWhite:.9 alpha:1];
+        _calView.differentMonthDayViewTextColor = [UIColor lightGrayColor];
+        
+        _calView.layer.shadowOffset = CGSizeMake(0, 0);
+        _calView.layer.shadowOpacity = .5f;
+        _calView.layer.shadowColor = [UIColor lightGrayColor].CGColor;
+        
+        _calView.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleTopMargin |
+                                    UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin;
+    }
+    return _calView;
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    //just making labels match rest of fonts..
-    NSString *fontName = @"HelveticaNeue-Light";
-    monthLabel.font = [UIFont fontWithName:fontName size:monthLabel.font.pointSize];
-    yearLabel.font = [UIFont fontWithName:fontName size:yearLabel.font.pointSize];
-    
-    self.view.backgroundColor = [UIColor colorWithWhite:.8 alpha:1];
-    selectedDateLabel.text = @"";
-    
+        
     NSDate *daysBefore = [self currentDateWithDaysOffset:-2];
     NSDate *daysAfter = [self currentDateWithDaysOffset:3];
     selectedDates = @[daysBefore, daysAfter];
     
+    NSString *fontName = @"HelveticaNeue-Light";
+    monthLabel.font = [UIFont fontWithName:fontName size:monthLabel.font.pointSize];
+    yearLabel.font = [UIFont fontWithName:fontName size:yearLabel.font.pointSize];
+    headerView.layer.shadowOffset = CGSizeMake(0, 3);
     
-    //-----------------CUSTOMIZING/ADDING Calendar-------------------//
-    //create view with padding (optional)
-    //Default is 5
-//    calView = [[MGCalendarView alloc] initWithPadding:5]; //this autocacluates frame (width will always be fixed)
-    calView = [[MGCalendarView alloc] initWithPadding:5 width:self.view.frame.size.width-20];
-    CGRect frame = calView.frame;
-    frame.origin.y = yearLabel.frame.origin.y + yearLabel.frame.size.height + 15;
-    frame.origin.x = self.view.frame.size.width*.5 - frame.size.width*.5;
-    calView.frame = frame;
-    calView.delegate = self;
-    [self.view addSubview:calView];
+    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"texture-gray"]];
+    selectedDateLabel.text = @"";
     
-    //Customize your Calendar
-    //Every calendar "dayView" is just a custom UIView...
-    //Customization is endless!
-    UIImage *texture = [UIImage imageNamed:@"texture-gray"];
-    calView.dayViewBackgroundColor = [UIColor colorWithPatternImage:texture];
-    calView.dayViewBorderColor = [UIColor colorWithWhite:85 alpha:1];
-    calView.dayViewBorderWidth = .5f;
-    
-    UIFont *font = [UIFont fontWithName:fontName size:15];
-    calView.dayViewDateFont = font;
-    calView.dayViewDayFont = [UIFont fontWithName:fontName size:10];
-    
-    calView.selectedDayViewBackgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"texture-green"]];
-    calView.selectedDayViewTextColor = [UIColor blackColor];
-    calView.selectedDayViewBorderColor = [UIColor greenColor];
-    
-    calView.currentDayViewBackgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"texture-purple"]];
-    calView.currentDayViewBorderColor = [UIColor colorWithRed:.933333333 green:.509803922 blue:.933333333 alpha:1];
-    calView.currentDayViewTextColor = [UIColor blackColor];
-    
-    calView.differentMonthDayViewBackgroundColor = [UIColor colorWithWhite:.85 alpha:1];
-    calView.differentMonthDayViewBorderColor = [UIColor colorWithWhite:.9 alpha:1];
-    calView.differentMonthDayViewTextColor = [UIColor lightGrayColor];
+    //add calendar to view
+    [self.view addSubview:self.calView];
+    self.calView.center = self.view.center;
+}
 
-    //not needed - reloads data when setting values
-//    [calView reloadData];
+//just a helper method for creating fake dates for the demo!
+- (NSDate*) currentDateWithDaysOffset:(NSInteger)offset {
+    NSDate *currentDate = [NSDate date];
+    return [currentDate dateByAddingTimeInterval:60*60*24*offset];
 }
 
 
@@ -103,7 +112,7 @@
     //highlight the selectedDates
     for (NSDate *selectedDate in selectedDates) {
         if ([selectedDate isSameDayAs:date]) {
-            selectedDateLabel.textColor = calView.dayViewDotColor;
+            selectedDateLabel.textColor = self.calView.dayViewDotColor;
             break;
         }
     }
@@ -118,11 +127,11 @@
 
 #pragma mark - Button Actions
 - (IBAction)rightButtonPressed:(id)sender {
-    [calView nextMonthAnimated:YES];
+    [self.calView nextMonthAnimated:YES];
 }
 
 - (IBAction)leftButtonPressed:(id)sender {
-    [calView previousMonthAnimated:YES];
+    [self.calView previousMonthAnimated:YES];
 }
 
 @end
