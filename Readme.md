@@ -81,8 +81,10 @@ Set these to edit the DayViews that are not in the month (of the baseDate) but s
 Checkout the demo for an example of how to use MGCalendar!
 
 # Screenshots
-Demo screenshot:
+Demo screenshot
+
 ![ScreenShot 1](http://i1186.photobucket.com/albums/z367/markos7007/IMG_0862_zpsfb5b932d.png)
 
-Crazy example:
+Crazy example
+
 ![ScreenShot 2](http://i1186.photobucket.com/albums/z367/markos7007/IMG_0845_zpsd294cb8c.png)
