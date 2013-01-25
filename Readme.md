@@ -3,10 +3,10 @@ MGCalendar was made to be an easily customized calendar for iOS (See screenshots
 
 Feel free to improve or add features (making them easily customizable :) as well).  Let me know your changes by sending a pull request!
 
-## Setup
+# Setup
 - Drag and drop the MGCalendar/MGCalendar Folder into your project. (No need to add the demo…)
 
-## MGCalendar Properties & Methods
+# MGCalendar Properties & Methods
 The `baseDate` is the date in which the entire calendar is based on.  This is left as being settable but I recommend you avoid messing with the `baseDate` unless you are sure the date is valid.
 `baseDate` is set the `[NSDate date];` by default.
 ```objc
@@ -72,10 +72,10 @@ Set these to edit the DayViews that are not in the month (of the baseDate) but s
 @property (nonatomic) UIColor *differentMonthDayViewTextColor;
 ```
 
-## Demo
+# Demo
 Checkout the demo for an example of how to use MGCalendar!
 
-## Screenshots
+# Screenshots
 Demo screenshot:
 ![ScreenShot 1](http://i1186.photobucket.com/albums/z367/markos7007/IMG_0862_zpsfb5b932d.png)
 
