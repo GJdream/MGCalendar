@@ -33,10 +33,10 @@ BY DEFAUL `isSwipeGestureEnabled` is YES
 @property (nonatomic) BOOL isSwipeGestureEnabled;
 ```
 
-#### The Customization Methods
+### The Customization Properties
 DayViews = The Actual Dates on the calendar, surrounded by a box (UIView).
 
-##### Generic DayView properties.
+#### Generic DayView properties.
 These do not effect all DayViews, only those that are not a  selected view, current date view, or a different month view (will explain what this is in a bit..).
 ```objc
 @property (nonatomic) UIColor *dayViewBorderColor;
@@ -48,7 +48,7 @@ These do not effect all DayViews, only those that are not a  selected view, curr
 @property (nonatomic) UIColor *dayViewDotColor;
 ```
 
-##### Selected DayView properties
+#### Selected DayView properties
 Set these to edit the selected DayView. (the view that is selected by touch…)
 ```objc
 @property (nonatomic) UIColor *selectedDayViewBackgroundColor;
@@ -56,7 +56,7 @@ Set these to edit the selected DayView. (the view that is selected by touch…)
 @property (nonatomic) UIColor *selectedDayViewBorderColor;
 ```
 
-##### Current DayView properties
+#### Current DayView properties
 Set these to edit the current DayView. (the view that is shows what the current date is)
 ```objc
 @property (nonatomic) UIColor *currentDayViewBackgroundColor;
@@ -64,7 +64,7 @@ Set these to edit the current DayView. (the view that is shows what the current 
 @property (nonatomic) UIColor *currentDayViewTextColor;
 ```
 
-##### Current DayView properties
+#### Current DayView properties
 Set these to edit the DayViews that are not in the month (of the baseDate) but still visible in the calendar.
 ```objc
 @property (nonatomic) UIColor *differentMonthDayViewBackgroundColor;
