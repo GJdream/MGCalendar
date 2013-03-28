@@ -87,8 +87,12 @@
     return self;
 }
 
-- (void) setHighlighted:(BOOL)highlighted {
-    [super setHighlighted:highlighted];
+
+- (void) touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
+    [self.delegate dayViewSelected:self];
+}
+
+- (void) touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event {
     [self.delegate dayViewSelected:self];
 }
 
