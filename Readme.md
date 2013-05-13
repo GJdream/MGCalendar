@@ -30,7 +30,7 @@ The `delegate` property is your typical delegate…
 ```
 
 The `isSwipeGestureEnabled` property dictates whether or not the swipe gesture (which changes months according to direction swiped) is enabled.
-BY DEFAUL `isSwipeGestureEnabled` is YES 
+BY DEFAULT `isSwipeGestureEnabled` is YES 
 ```objc
 @property (nonatomic) BOOL isSwipeGestureEnabled;
 ```
