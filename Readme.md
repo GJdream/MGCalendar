@@ -1,7 +1,7 @@
 # MGCalendar (MIT)
 MGCalendar was made to be an easily customized calendar for iOS (See screenshots).
 
-Feel free to improve or add features (making them easily customizable :) as well).  Let me know your changes by sending a pull request!
+Feel free to improve or add features (making them easily customizable as well).  Let me know your changes by creating a pull request!
 
 ![ScreenShot 1](http://i1186.photobucket.com/albums/z367/markos7007/IMG_0862_zpsfb5b932d-1_zpsd88ae1d2.jpg)
 
