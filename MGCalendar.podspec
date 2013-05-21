@@ -7,7 +7,7 @@ Pod::Spec.new do |s|
   s.author       = { "mglagola" => "mark.glagola@gmail.com" }
   s.source       = { :git => "https://github.com/mglagola/MGCalendar.git", :tag => s.version.to_s }
   s.platform     = :ios, '5.0'
-  s.source_files = 'Classes', 'Classes/**/*.{h,m}'
+  s.source_files = 'MGCalendar/Views/*', 'MGCalendar/Categories/*'
   s.frameworks = 'QuartzCore'
   s.requires_arc = true
 end
